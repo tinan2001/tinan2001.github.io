@@ -1,10 +1,9 @@
 ---
-title: "tinan2001.github.io"
+title: "Some title"
 ---
+[insert picture of self]
+My name is Tina Ni. I am a current second year graduate student studying geographic information science at SUNY Univeristy at Buffalo. This is website is a portfolio of my past academic projects as well as some career works.
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
 
 ```{r}
 1 + 1

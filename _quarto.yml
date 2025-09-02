@@ -3,10 +3,10 @@ project:
   output-dir: docs
   
 website:
-  title: "tinan2001.github.io"
+  title: "Tina Ni"
   navbar:
     left:
-      - text: Home 
+      - text: About Me
         href: index.qmd
   
       - text: Resume
@@ -29,6 +29,3 @@ format:
       - brand
     css: styles.css
     toc: true
-
-
-
