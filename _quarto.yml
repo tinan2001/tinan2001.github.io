@@ -6,9 +6,21 @@ website:
   title: "tinan2001.github.io"
   navbar:
     left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
+      - text: Home 
+        href: index.qmd
+  
+      - text: Resume
+        href: resume.qmd
+        
+      - text: Past Projects
+        menu:
+          - text: Advance Remote Sensing
+          - href: GEO653.qmd
+          - text: GIS in Env. Modeling
+          - href: GEO559.qmd
+        
+      
+      
 
 format:
   html:
