@@ -1,14 +1,5 @@
 ---
 title: "LCLU Change in College Town: Amherst, New York"
-format:
-  html:
-    toc: true
-    code-fold: true
-    code-tools: true 
-    grid:
-      body-width: 1000px
-      sidebar-width: 250px
-      margin-width: 150px
 ---
 
 Methods. This project looked at the land use land cover change in Amherst, New York. This project utilized ESRI ArcGIS Pro to perform a supervised remote sensing of both X meter sentinal and X meter orthophotos. Classifications were originally categorizes as X,X,X, and X.
