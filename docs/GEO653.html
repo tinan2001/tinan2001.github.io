@@ -72,7 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-22351bcc1941327779048f6542ad961a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -139,9 +139,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">About Me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./resume.qmd"> 
+    <a class="nav-link" href="./resume.html"> 
 <span class="menu-text">Resume</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-masters-portfolio" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Masters Portfolio</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-masters-portfolio">    
+        <li class="dropdown-header">Personal Statement</li>
+        <li>
+    <a class="dropdown-item" href="./personalstatement.qmd">
+ <span class="dropdown-text"></span></a>
+  </li>  
+        <li class="dropdown-header">Resume</li>
+        <li>
+    <a class="dropdown-item" href="./resume.html">
+ <span class="dropdown-text">Resume</span></a>
+  </li>  
+        <li class="dropdown-header">Writing Sample</li>
+        <li>
+    <a class="dropdown-item" href="./writingsample.qmd">
+ <span class="dropdown-text"></span></a>
+  </li>  
+        <li class="dropdown-header">Technical Application</li>
+        <li>
+    <a class="dropdown-item" href="./GEO653.html">
+ <span class="dropdown-text">LCLU Change in College Town: Amherst, New York</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-past-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Past Projects</span>
@@ -156,6 +183,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="./GEO559.html">
  <span class="dropdown-text">GEO559</span></a>
+  </li>  
+        <li class="dropdown-header">Machine Learning in GIS (ongoing)</li>
+        <li>
+    <a class="dropdown-item" href="./GEO514.qmd">
+ <span class="dropdown-text"></span></a>
+  </li>  
+        <li class="dropdown-header">Dynmaic Modeling</li>
+        <li>
+    <a class="dropdown-item" href="./GEO593.qmd">
+ <span class="dropdown-text"></span></a>
   </li>  
     </ul>
   </li>
@@ -178,7 +215,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">LCLU Change in College Town: Amherst, New York</h1>
+<div class="quarto-title-block"><div><h1 class="title">LCLU Change in College Town: Amherst, New York</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -195,352 +232,420 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>Methods. This project looked at the land use land cover change in Amherst, New York. This project utilized ESRI ArcGIS Pro to perform a supervised remote sensing of both X meter sentinal and X meter orthophotos. Classifications were originally categorizes as X,X,X, and X.</p>
+<p>Classification files were then analyzed using R programming to show temperal land change and also to identify areas of physical land change hotspots.</p>
+<section id="load-necessary-packages" class="level4">
+<h4 class="anchored" data-anchor-id="load-necessary-packages">Load necessary packages</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>terra 1.8.60</code></pre>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sp)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dbscan)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(osmdata)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggspatial)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prettymapr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Linking to GEOS 3.13.0, GDAL 3.5.3, PROJ 9.5.1; sf_use_s2() is TRUE</code></pre>
+<hr>
+</section>
+<section id="import-classified-land-raster-files-and-amherst-ny-town-boundary" class="level4">
+<h4 class="anchored" data-anchor-id="import-classified-land-raster-files-and-amherst-ny-town-boundary">Import classified land raster files and Amherst, NY town boundary</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>r10 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"GEO653_documents/Amherst_2010.tif"</span>) </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>r15 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"GEO653_documents/Amherst_2015.tif"</span>) </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>r17 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"GEO653_documents/Amherst_2017.tif"</span>) </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>r20 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"GEO653_documents/Amherst_2020.tif"</span>) </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>r24 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"GEO653_documents/Amherst_2024.tif"</span>) </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>amherst <span class="ot">&lt;-</span> <span class="fu">vect</span>(<span class="st">"GEO653_documents/BB.shp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>r10 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"GEO653_documents/Amherst_2010.tif"</span>) </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>r15 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"GEO653_documents/Amherst_2015.tif"</span>) </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>r17 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"GEO653_documents/Amherst_2017.tif"</span>) </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>r20 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"GEO653_documents/Amherst_2020.tif"</span>) </span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>r24 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"GEO653_documents/Amherst_2024.tif"</span>) </span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>amherst <span class="ot">&lt;-</span> <span class="fu">vect</span>(<span class="st">"GEO653_documents/BB.shp"</span>)</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>amherst <span class="ot">&lt;-</span> <span class="fu">project</span>(amherst, <span class="fu">crs</span>(r17))</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>amherst_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(amherst)</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>r10 <span class="ot">&lt;-</span> <span class="fu">mask</span>(<span class="fu">crop</span>(r10, amherst[<span class="dv">2</span>,]), amherst)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>r15 <span class="ot">&lt;-</span> <span class="fu">mask</span>(<span class="fu">crop</span>(r15, amherst[<span class="dv">2</span>,]), amherst)</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>r17 <span class="ot">&lt;-</span> <span class="fu">mask</span>(<span class="fu">crop</span>(r17, amherst[<span class="dv">2</span>,]), amherst)</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>r20 <span class="ot">&lt;-</span> <span class="fu">mask</span>(<span class="fu">crop</span>(r20, amherst[<span class="dv">2</span>,]), amherst)</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>r24 <span class="ot">&lt;-</span> <span class="fu">mask</span>(<span class="fu">crop</span>(r24, amherst[<span class="dv">2</span>,]), amherst)</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>rcl <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="dv">10</span>, <span class="dv">1</span>,</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="dv">20</span>, <span class="dv">2</span>,</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="dv">30</span>, <span class="dv">3</span>,</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="dv">60</span>, <span class="dv">4</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>r10_reclass <span class="ot">&lt;-</span> <span class="fu">classify</span>(r10, rcl)</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>r15_reclass <span class="ot">&lt;-</span> <span class="fu">classify</span>(r15, rcl)</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>r17_reclass <span class="ot">&lt;-</span> <span class="fu">classify</span>(r17, rcl)</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>r20_reclass <span class="ot">&lt;-</span> <span class="fu">classify</span>(r20, rcl)</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>r24_reclass <span class="ot">&lt;-</span> <span class="fu">classify</span>(r24, rcl)</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>r10_aligned <span class="ot">&lt;-</span> r10_reclass</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>r15_aligned <span class="ot">&lt;-</span> <span class="fu">resample</span>(r15_reclass, r10_reclass, <span class="at">method =</span> <span class="st">"near"</span>)</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>r17_aligned <span class="ot">&lt;-</span> <span class="fu">resample</span>(r17_reclass, r10_reclass, <span class="at">method =</span> <span class="st">"near"</span>)</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>r20_aligned <span class="ot">&lt;-</span> <span class="fu">resample</span>(r20_reclass, r10_reclass, <span class="at">method =</span> <span class="st">"near"</span>)</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>r24_aligned <span class="ot">&lt;-</span> <span class="fu">resample</span>(r24_reclass, r10_reclass, <span class="at">method =</span> <span class="st">"near"</span>)</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>r10_aligned[r10_aligned <span class="sc">==</span> <span class="dv">255</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>r15_aligned[r15_aligned <span class="sc">==</span> <span class="dv">255</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>r17_aligned[r17_aligned <span class="sc">==</span> <span class="dv">255</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>r20_aligned[r20_aligned <span class="sc">==</span> <span class="dv">255</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>r24_aligned[r24_aligned <span class="sc">==</span> <span class="dv">255</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>veg_to_dev_10_15 <span class="ot">&lt;-</span> (r10_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>)) <span class="sc">&amp;</span> (r15_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_to_dev_10_15, <span class="at">main =</span> <span class="st">"Vegetation to Developed 2010 - 2015"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+<p>Reproject variables and clean up data</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>amherst <span class="ot">&lt;-</span> <span class="fu">project</span>(amherst, <span class="fu">crs</span>(r17))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>amherst_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(amherst)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#crop boundaries</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>clip_raster <span class="ot">&lt;-</span> <span class="cf">function</span>(r, boundary) </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                                          {<span class="fu">mask</span> (<span class="fu">crop</span> (r, boundary[<span class="dv">2</span>, ]), boundary)}</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>r10 <span class="ot">&lt;-</span> <span class="fu">clip_raster</span>(r10, amherst)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>r15 <span class="ot">&lt;-</span> <span class="fu">clip_raster</span>(r15, amherst)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>r17 <span class="ot">&lt;-</span> <span class="fu">clip_raster</span>(r17, amherst)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>r20 <span class="ot">&lt;-</span> <span class="fu">clip_raster</span>(r20, amherst)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>r24 <span class="ot">&lt;-</span> <span class="fu">clip_raster</span>(r24, amherst)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>rcl <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="dv">10</span>, <span class="dv">1</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="dv">20</span>, <span class="dv">2</span>,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="dv">30</span>, <span class="dv">3</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="dv">60</span>, <span class="dv">4</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>r10_reclass <span class="ot">&lt;-</span> <span class="fu">classify</span>(r10, rcl)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>r15_reclass <span class="ot">&lt;-</span> <span class="fu">classify</span>(r15, rcl)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>r17_reclass <span class="ot">&lt;-</span> <span class="fu">classify</span>(r17, rcl)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>r20_reclass <span class="ot">&lt;-</span> <span class="fu">classify</span>(r20, rcl)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>r24_reclass <span class="ot">&lt;-</span> <span class="fu">classify</span>(r24, rcl)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>r10_aligned <span class="ot">&lt;-</span> r10_reclass</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>r15_aligned <span class="ot">&lt;-</span> <span class="fu">resample</span>(r15_reclass, r10_reclass, <span class="at">method =</span> <span class="st">"near"</span>)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>r17_aligned <span class="ot">&lt;-</span> <span class="fu">resample</span>(r17_reclass, r10_reclass, <span class="at">method =</span> <span class="st">"near"</span>)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>r20_aligned <span class="ot">&lt;-</span> <span class="fu">resample</span>(r20_reclass, r10_reclass, <span class="at">method =</span> <span class="st">"near"</span>)</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>r24_aligned <span class="ot">&lt;-</span> <span class="fu">resample</span>(r24_reclass, r10_reclass, <span class="at">method =</span> <span class="st">"near"</span>)</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>r10_aligned[r10_aligned <span class="sc">==</span> <span class="dv">255</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>r15_aligned[r15_aligned <span class="sc">==</span> <span class="dv">255</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>r17_aligned[r17_aligned <span class="sc">==</span> <span class="dv">255</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>r20_aligned[r20_aligned <span class="sc">==</span> <span class="dv">255</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>r24_aligned[r24_aligned <span class="sc">==</span> <span class="dv">255</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="plot-to-show-areas-that-changed-from-vegetation-to-developed-urban-between-different-years" class="level4">
+<h4 class="anchored" data-anchor-id="plot-to-show-areas-that-changed-from-vegetation-to-developed-urban-between-different-years">Plot to show areas that changed from vegetation to developed urban between different years</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">oma =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">0</span>)) </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>veg_to_dev_10_15 <span class="ot">&lt;-</span> (r10_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>)) <span class="sc">&amp;</span> (r15_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_to_dev_10_15, <span class="at">main =</span> <span class="st">"2010 - 2015"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>veg_to_dev_15_17 <span class="ot">&lt;-</span> (r15_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>)) <span class="sc">&amp;</span> (r17_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_to_dev_15_17, <span class="at">main =</span> <span class="st">"2015 - 2017"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>veg_to_dev_17_20 <span class="ot">&lt;-</span> (r17_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>)) <span class="sc">&amp;</span> (r20_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_to_dev_17_20, <span class="at">main =</span> <span class="st">"2017 - 2020"</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Areas of Vegetation to Developed"</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">outer =</span> <span class="cn">TRUE</span>, <span class="at">cex =</span> <span class="fl">1.5</span>, <span class="at">line =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="GEO653_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="GEO653_files/figure-html/unnamed-chunk-3-1.png" style="width:90.0%" class="figure-img"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>veg_to_dev_15_17 <span class="ot">&lt;-</span> (r15_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>)) <span class="sc">&amp;</span> (r17_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_to_dev_15_17, <span class="at">main =</span> <span class="st">"Vegetation to Developed 2015 - 2017"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">oma =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">0</span>)) </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>veg_to_dev_10_24 <span class="ot">&lt;-</span> (r10_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>)) <span class="sc">&amp;</span> (r24_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_to_dev_10_24, <span class="at">main =</span> <span class="st">"2010 - 2024"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>veg_to_dev_17_24 <span class="ot">&lt;-</span> (r17_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>)) <span class="sc">&amp;</span> (r24_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#plot(veg_to_dev_17_24, main = "2017 - 2024")</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>veg_to_dev_20_24 <span class="ot">&lt;-</span> (r20_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>)) <span class="sc">&amp;</span> (r24_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#plot(veg_to_dev_20_24, main = "2020 - 2024")</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Areas of Vegetation to Developed"</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">outer =</span> <span class="cn">TRUE</span>, <span class="at">cex =</span> <span class="fl">1.5</span>, <span class="at">line =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="GEO653_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="GEO653_files/figure-html/unnamed-chunk-4-1.png" style="width:90.0%" class="figure-img"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>veg_to_dev_17_20 <span class="ot">&lt;-</span> (r17_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>)) <span class="sc">&amp;</span> (r20_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_to_dev_17_20, <span class="at">main =</span> <span class="st">"Vegetation to Developed 2017 - 2020"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="find-spatial-clustering-of-land-change-true-cells" class="level4">
+<h4 class="anchored" data-anchor-id="find-spatial-clustering-of-land-change-true-cells">Find spatial clustering of land change (‘True’ cells)</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>moving_window <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="hotspots" class="level4">
+<h4 class="anchored" data-anchor-id="hotspots">2017 - 2020 Hotspots</h4>
+</section>
+<section id="hotspots-1" class="level4">
+<h4 class="anchored" data-anchor-id="hotspots-1">2020 - 2024 Hotspots</h4>
+</section>
+<section id="hotspots-2" class="level4">
+<h4 class="anchored" data-anchor-id="hotspots-2">2010 - 2024 Hotspots</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>veg_loss_hotspots_10_24 <span class="ot">&lt;-</span> <span class="fu">focal</span>(veg_to_dev_10_24, <span class="at">w =</span> moving_window, <span class="at">fun =</span> sum, <span class="at">na.policy =</span> <span class="st">"omit"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_loss_hotspots_10_24, <span class="at">main =</span> <span class="st">"Vegetation to Development Hotspots 2010 - 2024"</span>, <span class="at">col =</span> <span class="fu">terrain.colors</span>(<span class="dv">170</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="GEO653_files/figure-html/unnamed-chunk-1-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="GEO653_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>veg_to_dev_20_24 <span class="ot">&lt;-</span> (r20_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>)) <span class="sc">&amp;</span> (r24_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_to_dev_20_24, <span class="at">main =</span> <span class="st">"Vegetation to Developed 2020 - 2024"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>strong_hotspots_10_24<span class="ot">&lt;-</span> veg_loss_hotspots_10_24 <span class="sc">&gt;</span> <span class="dv">15</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(strong_hotspots_10_24, <span class="at">main =</span> <span class="st">"Strong Vegetation Loss Hotspots 2010 - 2024"</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"white"</span>, <span class="st">"red"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="GEO653_files/figure-html/unnamed-chunk-1-4.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="GEO653_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>veg_to_dev_10_24 <span class="ot">&lt;-</span> (r10_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>)) <span class="sc">&amp;</span> (r24_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_to_dev_10_24, <span class="at">main =</span> <span class="st">"Vegetation to Developed 2010 - 2024"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="GEO653_files/figure-html/unnamed-chunk-1-5.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>veg_to_dev_17_24 <span class="ot">&lt;-</span> (r17_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>)) <span class="sc">&amp;</span> (r24_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_to_dev_17_24, <span class="at">main =</span> <span class="st">"Vegetation to Developed 2017 - 2024"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="GEO653_files/figure-html/unnamed-chunk-1-6.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>moving_window <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#2010 - 2015 Hotspot </span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>veg_loss_hotspots_10_15 <span class="ot">&lt;-</span> <span class="fu">focal</span>(veg_to_dev_10_15, <span class="at">w =</span> moving_window, <span class="at">fun =</span> sum, <span class="at">na.policy =</span> <span class="st">"omit"</span>)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_loss_hotspots_10_15, <span class="at">main =</span> <span class="st">"Vegetation to Development Hotspots 2010 - 2015"</span>, <span class="at">col =</span> <span class="fu">terrain.colors</span>(<span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="GEO653_files/figure-html/unnamed-chunk-1-7.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>strong_hotspots_10_15<span class="ot">&lt;-</span> veg_loss_hotspots_10_15 <span class="sc">&gt;</span> <span class="dv">10</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(strong_hotspots_10_15, <span class="at">main =</span> <span class="st">"Strong Vegetation Loss Hotspots 2010 - 2015"</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"white"</span>, <span class="st">"red"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="GEO653_files/figure-html/unnamed-chunk-1-8.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>n_hotspot_pixels_10_15 <span class="ot">&lt;-</span> <span class="fu">global</span>(strong_hotspots_10_15, sum, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>hotspot_area_m2_10_15 <span class="ot">&lt;-</span> n_hotspot_pixels_10_15 <span class="sc">*</span> <span class="dv">900</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"2010-2015 Total strong hotspot area (meters^2):"</span>, <span class="fu">round</span>(hotspot_area_m2_10_15, <span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "2010-2015 Total strong hotspot area (meters^2): 993600"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2015 - 2017 Hotspot </span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>veg_loss_hotspots_15_17 <span class="ot">&lt;-</span> <span class="fu">focal</span>(veg_to_dev_15_17, <span class="at">w =</span> moving_window, <span class="at">fun =</span> sum, <span class="at">na.policy =</span> <span class="st">"omit"</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_loss_hotspots_15_17, <span class="at">main =</span> <span class="st">"Vegetation to Development Hotspots 2015 - 2017"</span>, <span class="at">col =</span> <span class="fu">terrain.colors</span>(<span class="dv">150</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="GEO653_files/figure-html/unnamed-chunk-1-9.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>strong_hotspots_15_17<span class="ot">&lt;-</span> veg_loss_hotspots_15_17 <span class="sc">&gt;</span> <span class="dv">15</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(strong_hotspots_15_17, <span class="at">main =</span> <span class="st">"Strong Vegetation Loss Hotspots 2015 - 2017"</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"white"</span>, <span class="st">"red"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="GEO653_files/figure-html/unnamed-chunk-1-10.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>n_hotspot_pixels_15_17 <span class="ot">&lt;-</span> <span class="fu">global</span>(strong_hotspots_15_17, sum, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>hotspot_area_m2_15_17 <span class="ot">&lt;-</span> n_hotspot_pixels_15_17 <span class="sc">*</span> <span class="dv">900</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"2015-2017 Total strong hotspot area (meters^2):"</span>, <span class="fu">round</span>(hotspot_area_m2_15_17, <span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "2015-2017 Total strong hotspot area (meters^2): 47700"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2017 - 2020 Hotspot </span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>veg_loss_hotspots_17_20 <span class="ot">&lt;-</span> <span class="fu">focal</span>(veg_to_dev_17_20, <span class="at">w =</span> moving_window, <span class="at">fun =</span> sum, <span class="at">na.policy =</span> <span class="st">"omit"</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_loss_hotspots_17_20, <span class="at">main =</span> <span class="st">"Vegetation to Development Hotspots 2017 - 2020"</span>, <span class="at">col =</span> <span class="fu">terrain.colors</span>(<span class="dv">170</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="GEO653_files/figure-html/unnamed-chunk-1-11.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>strong_hotspots_17_20<span class="ot">&lt;-</span> veg_loss_hotspots_17_20 <span class="sc">&gt;</span> <span class="dv">17</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(strong_hotspots_17_20, <span class="at">main =</span> <span class="st">"Strong Vegetation Loss Hotspots 2017 - 2020"</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"white"</span>, <span class="st">"red"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="GEO653_files/figure-html/unnamed-chunk-1-12.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>n_hotspot_pixels_17_20 <span class="ot">&lt;-</span> <span class="fu">global</span>(strong_hotspots_17_20, sum, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>hotspot_area_m2_17_20 <span class="ot">&lt;-</span> n_hotspot_pixels_17_20 <span class="sc">*</span> <span class="dv">900</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"2017-2020 Total strong hotspot area (meters^2):"</span>, <span class="fu">round</span>(hotspot_area_m2_17_20, <span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "2017-2020 Total strong hotspot area (meters^2): 214200"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2020 - 2024 Hotspot </span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>veg_loss_hotspots_20_24 <span class="ot">&lt;-</span> <span class="fu">focal</span>(veg_to_dev_20_24, <span class="at">w =</span> moving_window, <span class="at">fun =</span> sum, <span class="at">na.policy =</span> <span class="st">"omit"</span>)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_loss_hotspots_20_24, <span class="at">main =</span> <span class="st">"Vegetation to Development Hotspots 2020 - 2024"</span>, <span class="at">col =</span> <span class="fu">terrain.colors</span>(<span class="dv">170</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="GEO653_files/figure-html/unnamed-chunk-1-13.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>strong_hotspots_20_24<span class="ot">&lt;-</span> veg_loss_hotspots_20_24 <span class="sc">&gt;</span> <span class="dv">17</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(strong_hotspots_20_24, <span class="at">main =</span> <span class="st">"Strong Vegetation Loss Hotspots 2020 - 2024"</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"white"</span>, <span class="st">"red"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="GEO653_files/figure-html/unnamed-chunk-1-14.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>n_hotspot_pixels_20_24 <span class="ot">&lt;-</span> <span class="fu">global</span>(strong_hotspots_20_24, sum, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>hotspot_area_m2_20_24 <span class="ot">&lt;-</span> n_hotspot_pixels_20_24 <span class="sc">*</span> <span class="dv">900</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"2020-2024 Total strong hotspot area (meters^2):"</span>, <span class="fu">round</span>(hotspot_area_m2_20_24, <span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "2020-2024 Total strong hotspot area (meters^2): 322200"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2010 - 2024 Hotspot </span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>veg_loss_hotspots_10_24 <span class="ot">&lt;-</span> <span class="fu">focal</span>(veg_to_dev_10_24, <span class="at">w =</span> moving_window, <span class="at">fun =</span> sum, <span class="at">na.policy =</span> <span class="st">"omit"</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_loss_hotspots_10_24, <span class="at">main =</span> <span class="st">"Vegetation to Development Hotspots 2010 - 2024"</span>, <span class="at">col =</span> <span class="fu">terrain.colors</span>(<span class="dv">170</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="GEO653_files/figure-html/unnamed-chunk-1-15.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>strong_hotspots_10_24<span class="ot">&lt;-</span> veg_loss_hotspots_10_24 <span class="sc">&gt;</span> <span class="dv">15</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(strong_hotspots_10_24, <span class="at">main =</span> <span class="st">"Strong Vegetation Loss Hotspots 2010 - 2024"</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"white"</span>, <span class="st">"red"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="GEO653_files/figure-html/unnamed-chunk-1-16.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>n_hotspot_pixels_10_24 <span class="ot">&lt;-</span> <span class="fu">global</span>(strong_hotspots_10_24, sum, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>hotspot_area_m2_10_24 <span class="ot">&lt;-</span> n_hotspot_pixels_10_24 <span class="sc">*</span> <span class="dv">900</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"2010-2024 Total strong hotspot area (meters^2):"</span>, <span class="fu">round</span>(hotspot_area_m2_10_24, <span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>n_hotspot_pixels_10_24 <span class="ot">&lt;-</span> <span class="fu">global</span>(strong_hotspots_10_24, sum, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>hotspot_area_m2_10_24 <span class="ot">&lt;-</span> n_hotspot_pixels_10_24 <span class="sc">*</span> <span class="dv">900</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"2010-2024 Total strong hotspot area (meters^2):"</span>, <span class="fu">round</span>(hotspot_area_m2_10_24, <span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2010-2024 Total strong hotspot area (meters^2): 953100"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2017 - 2024 Hotspot </span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>veg_loss_hotspots_17_24 <span class="ot">&lt;-</span> <span class="fu">focal</span>(veg_to_dev_17_24, <span class="at">w =</span> moving_window, <span class="at">fun =</span> sum, <span class="at">na.policy =</span> <span class="st">"omit"</span>)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_loss_hotspots_17_24, <span class="at">main =</span> <span class="st">"Vegetation to Development Hotspots 2017 - 2024"</span>, <span class="at">col =</span> <span class="fu">terrain.colors</span>(<span class="dv">170</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="hotspots-3" class="level4">
+<h4 class="anchored" data-anchor-id="hotspots-3">2017 - 2024 Hotspots</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#convert raster hotspots to polygons</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>hotspot_polygons <span class="ot">&lt;-</span> <span class="fu">as.polygons</span>(strong_hotspots_10_24, <span class="at">dissolve =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>hotspot_polygons <span class="ot">&lt;-</span> hotspot_polygons[hotspot_polygons[[<span class="dv">1</span>]] <span class="sc">==</span> <span class="dv">1</span>, ]</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#find centroids and coords to polygons</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>centroids <span class="ot">&lt;-</span> <span class="fu">centroids</span>(hotspot_polygons)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>coords <span class="ot">&lt;-</span> <span class="fu">crds</span>(centroids)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#find clustering of centroids </span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>eps_value <span class="ot">&lt;-</span> <span class="dv">50</span>  <span class="co"># adjust as needed</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>clust <span class="ot">&lt;-</span> <span class="fu">dbscan</span>(coords, <span class="at">eps =</span> eps_value, <span class="at">minPts =</span> <span class="dv">1</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>centroids<span class="sc">$</span>cluster <span class="ot">&lt;-</span> clust<span class="sc">$</span>cluster</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>attr_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(centroids)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">#make grouped centroids into one single centroid by average (x,y)</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>centroids_df <span class="ot">&lt;-</span> <span class="fu">cbind</span>(attr_df, <span class="at">x =</span> coords[,<span class="dv">1</span>], <span class="at">y =</span> coords[,<span class="dv">2</span>])</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>cluster_summary <span class="ot">&lt;-</span> centroids_df <span class="sc">%&gt;%</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cluster) <span class="sc">%&gt;%</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_x =</span> <span class="fu">mean</span>(x),</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_y =</span> <span class="fu">mean</span>(y),</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">count =</span> <span class="fu">n</span>()</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>cluster_centroids <span class="ot">&lt;-</span> <span class="fu">vect</span>(cluster_summary[, <span class="fu">c</span>(<span class="st">"mean_x"</span>, <span class="st">"mean_y"</span>)], </span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>                         <span class="at">geom =</span> <span class="fu">c</span>(<span class="st">"mean_x"</span>, <span class="st">"mean_y"</span>), <span class="at">crs =</span> <span class="fu">crs</span>(centroids))</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="co">#areas of hotspots</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cluster_centroids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="GEO653_files/figure-html/unnamed-chunk-1-17.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="GEO653_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>strong_hotspots_17_24<span class="ot">&lt;-</span> veg_loss_hotspots_17_24 <span class="sc">&gt;</span> <span class="dv">15</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(strong_hotspots_17_24, <span class="at">main =</span> <span class="st">"Strong Vegetation Loss Hotspots 2017 - 2024"</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"white"</span>, <span class="st">"red"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="GEO653_files/figure-html/unnamed-chunk-1-18.png" class="img-fluid figure-img" width="672"></p>
-</figure>
 </div>
-</div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>n_hotspot_pixels_17_24 <span class="ot">&lt;-</span> <span class="fu">global</span>(strong_hotspots_17_24, sum, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>hotspot_area_m2_17_24 <span class="ot">&lt;-</span> n_hotspot_pixels_17_24 <span class="sc">*</span> <span class="dv">900</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"2010-2024 Total strong hotspot area (meters^2):"</span>, <span class="fu">round</span>(hotspot_area_m2_17_24, <span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------------------------</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Convert to sf and reproject to WGS84</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------------------------</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming clustered_centroids is a SpatVector from terra</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>clustered_centroids_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(cluster_centroids)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>clustered_centroids_wgs84 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(clustered_centroids_sf, <span class="dv">4326</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------------------------</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Buffer each centroid (e.g., ~25m buffer in degrees)</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------------------------</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>buffer_radius <span class="ot">&lt;-</span> <span class="fl">0.00025</span>  <span class="co"># ~25 meters in lat/lon degrees</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>centroid_buffers <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(clustered_centroids_wgs84, <span class="at">dist =</span> buffer_radius)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------------------------</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Query OSM for landuse features (one request for all)</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------------------------</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Get bounding box of all buffers</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>global_bbox <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(centroid_buffers)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Set OSM key to landuse</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>osm_key <span class="ot">&lt;-</span> <span class="st">"landuse"</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Build and send query</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> global_bbox) <span class="sc">%&gt;%</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_osm_feature</span>(<span class="at">key =</span> osm_key)</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>osm_data <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">osmdata_sf</span>(query),</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">error =</span> <span class="cf">function</span>(e) <span class="cn">NULL</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------------------------</span></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Intersect returned OSM features with centroid buffers</span></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------------------------</span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(osm_data) <span class="sc">&amp;&amp;</span> <span class="fu">nrow</span>(osm_data<span class="sc">$</span>osm_polygons) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>  osm_landuse <span class="ot">&lt;-</span> osm_data<span class="sc">$</span>osm_polygons</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>  overlaps <span class="ot">&lt;-</span> <span class="fu">st_join</span>(centroid_buffers, osm_landuse, <span class="at">join =</span> st_intersects, <span class="at">left =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nrow</span>(overlaps) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Matched landuse types:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">table</span>(overlaps<span class="sc">$</span>landuse))</span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="fu">st_geometry</span>(centroid_buffers), <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">border =</span> <span class="st">"gray"</span>, <span class="at">main =</span> <span class="st">"Land Use Around Clustered Centroids"</span>)</span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="fu">st_geometry</span>(osm_landuse), <span class="at">col =</span> <span class="st">"lightgreen"</span>, <span class="at">border =</span> <span class="st">"green"</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="fu">st_geometry</span>(clustered_centroids_wgs84), <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"no landuse polygons overlapped with point buffer."</span>)</span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"no landuse data returned from OSM."</span>)</span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2010-2024 Total strong hotspot area (meters^2): 841500"</code></pre>
+<pre><code>Matched landuse types:
+
+  brownfield construction       meadow  residential 
+           1            3            1           13 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2017 - 2024 Hotspot </span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>strong_hotspots_proj_17_24 <span class="ot">&lt;-</span> <span class="fu">project</span>(strong_hotspots_17_24, <span class="st">"EPSG:3857"</span>)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Convert logical values (FALSE/TRUE) to numeric (0/1)</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>strong_hotspots_proj_17_24_numeric <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(strong_hotspots_proj_17_24)</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Mask out 0 and NA values (only keep the 1's)</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>strong_hotspots_proj_17_24_numeric_no_zeros <span class="ot">&lt;-</span> <span class="fu">mask</span>(strong_hotspots_proj_17_24_numeric, strong_hotspots_proj_17_24_numeric, <span class="at">maskvalues =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>))</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Set color palette for 0 (no hotspot) as transparent and 1 (hotspot) as red</span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>pal_hotspots <span class="ot">&lt;-</span> <span class="fu">colorNumeric</span>(</span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"transparent"</span>, <span class="st">"red"</span>),  <span class="co"># Transparent for no hotspot (0), red for hotspot (1)</span></span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">domain =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Create the Leaflet map</span></span>
-<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>Esri.WorldImagery) <span class="sc">%&gt;%</span></span>
-<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addRasterImage</span>(</span>
-<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>    strong_hotspots_proj_17_24_numeric_no_zeros,</span>
-<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">colors =</span> pal_hotspots,</span>
-<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">opacity =</span> <span class="fl">0.50</span>,  <span class="co"># Show hotspots with full opacity</span></span>
-<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">project =</span> <span class="cn">FALSE</span></span>
-<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addLegend</span>(</span>
-<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"bottomright"</span>,</span>
-<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">pal =</span> pal_hotspots,</span>
-<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Vegetation Loss Hotspots (2017-2024)"</span>,</span>
-<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No Hotspot"</span>, <span class="st">"Hotspot"</span>)</span>
-<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-3cb699f2e0b65de501fa" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-3cb699f2e0b65de501fa">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldImagery",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addRasterImage","args":["data:image/png;base64,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",[[43.0547461058898,-78.8358835108731],[42.94528588812624,-78.69321961834841]],null,null,{"tileSize":256,"zIndex":1,"minZoom":0,"opacity":0.5}]},{"method":"addLegend","args":[{"colors":["#FFFFFF , #FFFFFF 0%, #FFD9CB 20%, #FFB299 40%, #FF8969 60%, #FF5B3A 80%, #FF0000 100%, #FF0000 "],"labels":["0.0","0.2","0.4","0.6","0.8","1.0"],"na_color":null,"na_label":"NA","opacity":0.5,"position":"bottomright","type":"numeric","title":"Vegetation Loss Hotspots (2017-2024)","extra":{"p_1":0,"p_n":1},"layerId":null,"className":"info legend","group":null}]}],"limits":{"lat":[42.94528588812624,43.0547461058898],"lng":[-78.8358835108731,-78.69321961834841]}},"evals":[],"jsHooks":[]}</script>
+<div>
+<figure class="figure">
+<p><img src="GEO653_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2010 - 2024 Hotspot </span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>strong_hotspots_proj_10_24 <span class="ot">&lt;-</span> <span class="fu">project</span>(strong_hotspots_10_24, <span class="st">"EPSG:3857"</span>)</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Convert logical values (FALSE/TRUE) to numeric (0/1)</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>strong_hotspots_proj_10_24_numeric <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(strong_hotspots_proj_10_24)</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Mask out 0 and NA values (only keep the 1's)</span></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>strong_hotspots_proj_10_24_numeric_no_zeros <span class="ot">&lt;-</span> <span class="fu">mask</span>(strong_hotspots_proj_10_24_numeric, strong_hotspots_proj_10_24_numeric, <span class="at">maskvalues =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>))</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Set color palette for 0 (no hotspot) as transparent and 1 (hotspot) as red</span></span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>pal_hotspots <span class="ot">&lt;-</span> <span class="fu">colorNumeric</span>(</span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"transparent"</span>, <span class="st">"red"</span>),  <span class="co"># Transparent for no hotspot (0), red for hotspot (1)</span></span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">domain =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Create the Leaflet map</span></span>
-<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>Esri.WorldImagery) <span class="sc">%&gt;%</span></span>
-<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addRasterImage</span>(</span>
-<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>    strong_hotspots_proj_10_24_numeric_no_zeros,</span>
-<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">colors =</span> pal_hotspots,</span>
-<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">opacity =</span> <span class="fl">0.50</span>,  <span class="co"># Show hotspots with full opacity</span></span>
-<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">project =</span> <span class="cn">FALSE</span></span>
-<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addLegend</span>(</span>
-<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"bottomright"</span>,</span>
-<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">pal =</span> pal_hotspots,</span>
-<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Vegetation Loss Hotspots (2010-2024)"</span>,</span>
-<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No Hotspot"</span>, <span class="st">"Hotspot"</span>)</span>
-<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#buffer the centroids to find the various land use around the area</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>centroid_buffers<span class="sc">$</span>id <span class="ot">&lt;-</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(centroid_buffers))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>landuse_matches <span class="ot">&lt;-</span> <span class="fu">st_join</span>(centroid_buffers, osm_landuse, <span class="at">join =</span> st_intersects, <span class="at">left =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#find the most dominant land use and assign to the centroid</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>dominant_landuse <span class="ot">&lt;-</span> landuse_matches <span class="sc">%&gt;%</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id, landuse) <span class="sc">%&gt;%</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> count, <span class="at">n =</span> <span class="dv">1</span>, <span class="at">with_ties =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>centroid_with_landuse <span class="ot">&lt;-</span> <span class="fu">left_join</span>(centroid_buffers, dominant_landuse, <span class="at">by =</span> <span class="st">"id"</span>)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>centroid_points <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(centroid_with_landuse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: st_centroid assumes attributes are constant over geometries</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>centroid_points <span class="ot">&lt;-</span> centroid_points <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">landuse =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(landuse), <span class="st">"not found"</span>, landuse),</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">count =</span> <span class="dv">1</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_map_tile</span>(<span class="at">type =</span> <span class="st">"osm"</span>) <span class="sc">+</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> centroid_points, <span class="fu">aes</span>(<span class="at">color =</span> landuse), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">19</span>) <span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">name =</span> <span class="st">"Dominant Landuse"</span>) <span class="sc">+</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Centroids Colored by Dominant Landuse"</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Zoom: 11</code></pre>
+</div>
 <div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-0ecdc2107cbb43d092dc" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-0ecdc2107cbb43d092dc">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldImagery",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addRasterImage","args":["data:image/png;base64,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",[[43.0547461058898,-78.8358835108731],[42.94528588812624,-78.69321961834841]],null,null,{"tileSize":256,"zIndex":1,"minZoom":0,"opacity":0.5}]},{"method":"addLegend","args":[{"colors":["#FFFFFF , #FFFFFF 0%, #FFD9CB 20%, #FFB299 40%, #FF8969 60%, #FF5B3A 80%, #FF0000 100%, #FF0000 "],"labels":["0.0","0.2","0.4","0.6","0.8","1.0"],"na_color":null,"na_label":"NA","opacity":0.5,"position":"bottomright","type":"numeric","title":"Vegetation Loss Hotspots (2010-2024)","extra":{"p_1":0,"p_n":1},"layerId":null,"className":"info legend","group":null}]}],"limits":{"lat":[42.94528588812624,43.0547461058898],"lng":[-78.8358835108731,-78.69321961834841]}},"evals":[],"jsHooks":[]}</script>
+<div>
+<figure class="figure">
+<p><img src="GEO653_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
 </div>
-<iframe src="pdfs/GEO653_Final Project Paper_TINANI.pdf" width="100%" height="700px">
-</iframe>
-<p>’)</p>
+</div>
+</section>
+<section id="hotspots-4" class="level4">
+<h4 class="anchored" data-anchor-id="hotspots-4">2017 - 2024 Hotspots</h4>
+</section>
+<section id="hotspots-5" class="level4">
+<h4 class="anchored" data-anchor-id="hotspots-5">2010 - 2024 Hotspots</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2010 - 2024 Hotspot </span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>strong_hotspots_proj_10_24 <span class="ot">&lt;-</span> <span class="fu">project</span>(strong_hotspots_10_24, <span class="st">"EPSG:3857"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Convert True and False to 1 and 0</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>strong_hotspots_proj_10_24_numeric <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(strong_hotspots_proj_10_24)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>strong_hotspots_proj_10_24_numeric_no_zeros <span class="ot">&lt;-</span> <span class="fu">mask</span>(strong_hotspots_proj_10_24_numeric, strong_hotspots_proj_10_24_numeric, <span class="at">maskvalues =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>))</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Color the hotspots red and make the non hotspot areas transparent</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>pal_hotspots <span class="ot">&lt;-</span> <span class="fu">colorNumeric</span>(</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"transparent"</span>, <span class="st">"red"</span>),</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">domain =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot on a leafet map with osm to identify land use of hotspot areas</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>OpenStreetMap) <span class="sc">%&gt;%</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addRasterImage</span>(</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    strong_hotspots_proj_10_24_numeric_no_zeros,</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">colors =</span> pal_hotspots,</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">opacity =</span> <span class="fl">0.50</span>,  <span class="co"># Show hotspots with full opacity</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">project =</span> <span class="cn">FALSE</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addLegend</span>(</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"bottomright"</span>,</span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">pal =</span> pal_hotspots,</span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Vegetation Loss Hotspots (2010-2024)"</span>,</span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No Hotspot"</span>, <span class="st">"Hotspot"</span>)</span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-332b164e12d8a46feb21" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-332b164e12d8a46feb21">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["OpenStreetMap",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addRasterImage","args":["data:image/png;base64,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",[[43.0547461058898,-78.8358835108731],[42.94528588812624,-78.69321961834841]],null,null,{"tileSize":256,"zIndex":1,"minZoom":0,"opacity":0.5}]},{"method":"addLegend","args":[{"colors":["#FFFFFF , #FFFFFF 0%, #FFD9CB 20%, #FFB299 40%, #FF8969 60%, #FF5B3A 80%, #FF0000 100%, #FF0000 "],"labels":["0.0","0.2","0.4","0.6","0.8","1.0"],"na_color":null,"na_label":"NA","opacity":0.5,"position":"bottomright","type":"numeric","title":"Vegetation Loss Hotspots (2010-2024)","extra":{"p_1":0,"p_n":1},"layerId":null,"className":"info legend","group":null}]}],"limits":{"lat":[42.94528588812624,43.0547461058898],"lng":[-78.8358835108731,-78.69321961834841]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
 
 
+<!-- -->
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -630,6 +735,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
     clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
@@ -959,7 +1115,447 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb19" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "LCLU Change in College Town: Amherst, New York"</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true </span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">    grid:</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">      body-width: 1000px</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">      sidebar-width: 250px</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co">      margin-width: 150px</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>Methods. This project looked at the land use land cover change in Amherst, New York. This project utilized ESRI ArcGIS Pro to perform a supervised remote sensing of both X meter sentinal and X meter orthophotos. Classifications were originally categorizes as X,X,X, and X.</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>Classification files were then analyzed using R programming to show temperal land change and also to identify areas of physical land change hotspots.</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Load necessary packages</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="in">```{r Loading Packages, message = FALSE}</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="in">library(terra)</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="in">library(sf)</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="in">library(ggplot2)</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="in">library(leaflet)</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="in">library(sp)</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="in">library(raster)</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="in">library(dbscan)</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="in">library(dplyr)</span></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="in">library(osmdata)</span></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="in">library(ggspatial)</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="in">library(prettymapr)</span></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Import classified land raster files and Amherst, NY town boundary</span></span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a>r10 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"GEO653_documents/Amherst_2010.tif"</span>) </span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a>r15 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"GEO653_documents/Amherst_2015.tif"</span>) </span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a>r17 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"GEO653_documents/Amherst_2017.tif"</span>) </span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>r20 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"GEO653_documents/Amherst_2020.tif"</span>) </span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a>r24 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"GEO653_documents/Amherst_2024.tif"</span>) </span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a>amherst <span class="ot">&lt;-</span> <span class="fu">vect</span>(<span class="st">"GEO653_documents/BB.shp"</span>)</span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a>Reproject variables and clean up data</span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a>amherst <span class="ot">&lt;-</span> <span class="fu">project</span>(amherst, <span class="fu">crs</span>(r17))</span>
+<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a>amherst_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(amherst)</span>
+<span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a><span class="co">#crop boundaries</span></span>
+<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a>clip_raster <span class="ot">&lt;-</span> <span class="cf">function</span>(r, boundary) </span>
+<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a>                                          {<span class="fu">mask</span> (<span class="fu">crop</span> (r, boundary[<span class="dv">2</span>, ]), boundary)}</span>
+<span id="cb19-63"><a href="#cb19-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-64"><a href="#cb19-64" aria-hidden="true" tabindex="-1"></a>r10 <span class="ot">&lt;-</span> <span class="fu">clip_raster</span>(r10, amherst)</span>
+<span id="cb19-65"><a href="#cb19-65" aria-hidden="true" tabindex="-1"></a>r15 <span class="ot">&lt;-</span> <span class="fu">clip_raster</span>(r15, amherst)</span>
+<span id="cb19-66"><a href="#cb19-66" aria-hidden="true" tabindex="-1"></a>r17 <span class="ot">&lt;-</span> <span class="fu">clip_raster</span>(r17, amherst)</span>
+<span id="cb19-67"><a href="#cb19-67" aria-hidden="true" tabindex="-1"></a>r20 <span class="ot">&lt;-</span> <span class="fu">clip_raster</span>(r20, amherst)</span>
+<span id="cb19-68"><a href="#cb19-68" aria-hidden="true" tabindex="-1"></a>r24 <span class="ot">&lt;-</span> <span class="fu">clip_raster</span>(r24, amherst)</span>
+<span id="cb19-69"><a href="#cb19-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-70"><a href="#cb19-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-71"><a href="#cb19-71" aria-hidden="true" tabindex="-1"></a>rcl <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
+<span id="cb19-72"><a href="#cb19-72" aria-hidden="true" tabindex="-1"></a>  <span class="dv">10</span>, <span class="dv">1</span>,</span>
+<span id="cb19-73"><a href="#cb19-73" aria-hidden="true" tabindex="-1"></a>  <span class="dv">20</span>, <span class="dv">2</span>,</span>
+<span id="cb19-74"><a href="#cb19-74" aria-hidden="true" tabindex="-1"></a>  <span class="dv">30</span>, <span class="dv">3</span>,</span>
+<span id="cb19-75"><a href="#cb19-75" aria-hidden="true" tabindex="-1"></a>  <span class="dv">60</span>, <span class="dv">4</span></span>
+<span id="cb19-76"><a href="#cb19-76" aria-hidden="true" tabindex="-1"></a>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-77"><a href="#cb19-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-78"><a href="#cb19-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-79"><a href="#cb19-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-80"><a href="#cb19-80" aria-hidden="true" tabindex="-1"></a>r10_reclass <span class="ot">&lt;-</span> <span class="fu">classify</span>(r10, rcl)</span>
+<span id="cb19-81"><a href="#cb19-81" aria-hidden="true" tabindex="-1"></a>r15_reclass <span class="ot">&lt;-</span> <span class="fu">classify</span>(r15, rcl)</span>
+<span id="cb19-82"><a href="#cb19-82" aria-hidden="true" tabindex="-1"></a>r17_reclass <span class="ot">&lt;-</span> <span class="fu">classify</span>(r17, rcl)</span>
+<span id="cb19-83"><a href="#cb19-83" aria-hidden="true" tabindex="-1"></a>r20_reclass <span class="ot">&lt;-</span> <span class="fu">classify</span>(r20, rcl)</span>
+<span id="cb19-84"><a href="#cb19-84" aria-hidden="true" tabindex="-1"></a>r24_reclass <span class="ot">&lt;-</span> <span class="fu">classify</span>(r24, rcl)</span>
+<span id="cb19-85"><a href="#cb19-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-86"><a href="#cb19-86" aria-hidden="true" tabindex="-1"></a>r10_aligned <span class="ot">&lt;-</span> r10_reclass</span>
+<span id="cb19-87"><a href="#cb19-87" aria-hidden="true" tabindex="-1"></a>r15_aligned <span class="ot">&lt;-</span> <span class="fu">resample</span>(r15_reclass, r10_reclass, <span class="at">method =</span> <span class="st">"near"</span>)</span>
+<span id="cb19-88"><a href="#cb19-88" aria-hidden="true" tabindex="-1"></a>r17_aligned <span class="ot">&lt;-</span> <span class="fu">resample</span>(r17_reclass, r10_reclass, <span class="at">method =</span> <span class="st">"near"</span>)</span>
+<span id="cb19-89"><a href="#cb19-89" aria-hidden="true" tabindex="-1"></a>r20_aligned <span class="ot">&lt;-</span> <span class="fu">resample</span>(r20_reclass, r10_reclass, <span class="at">method =</span> <span class="st">"near"</span>)</span>
+<span id="cb19-90"><a href="#cb19-90" aria-hidden="true" tabindex="-1"></a>r24_aligned <span class="ot">&lt;-</span> <span class="fu">resample</span>(r24_reclass, r10_reclass, <span class="at">method =</span> <span class="st">"near"</span>)</span>
+<span id="cb19-91"><a href="#cb19-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-92"><a href="#cb19-92" aria-hidden="true" tabindex="-1"></a>r10_aligned[r10_aligned <span class="sc">==</span> <span class="dv">255</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb19-93"><a href="#cb19-93" aria-hidden="true" tabindex="-1"></a>r15_aligned[r15_aligned <span class="sc">==</span> <span class="dv">255</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb19-94"><a href="#cb19-94" aria-hidden="true" tabindex="-1"></a>r17_aligned[r17_aligned <span class="sc">==</span> <span class="dv">255</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb19-95"><a href="#cb19-95" aria-hidden="true" tabindex="-1"></a>r20_aligned[r20_aligned <span class="sc">==</span> <span class="dv">255</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb19-96"><a href="#cb19-96" aria-hidden="true" tabindex="-1"></a>r24_aligned[r24_aligned <span class="sc">==</span> <span class="dv">255</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb19-97"><a href="#cb19-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-98"><a href="#cb19-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-99"><a href="#cb19-99" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Plot to show areas that changed from vegetation to developed urban between different years</span></span>
+<span id="cb19-100"><a href="#cb19-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-103"><a href="#cb19-103" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-104"><a href="#cb19-104" aria-hidden="true" tabindex="-1"></a><span class="co">#| out-width: "90%"</span></span>
+<span id="cb19-105"><a href="#cb19-105" aria-hidden="true" tabindex="-1"></a><span class="co">#| out-height: "auto"</span></span>
+<span id="cb19-106"><a href="#cb19-106" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">oma =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">0</span>)) </span>
+<span id="cb19-107"><a href="#cb19-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-108"><a href="#cb19-108" aria-hidden="true" tabindex="-1"></a>veg_to_dev_10_15 <span class="ot">&lt;-</span> (r10_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>)) <span class="sc">&amp;</span> (r15_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb19-109"><a href="#cb19-109" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_to_dev_10_15, <span class="at">main =</span> <span class="st">"2010 - 2015"</span>)</span>
+<span id="cb19-110"><a href="#cb19-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-111"><a href="#cb19-111" aria-hidden="true" tabindex="-1"></a>veg_to_dev_15_17 <span class="ot">&lt;-</span> (r15_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>)) <span class="sc">&amp;</span> (r17_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb19-112"><a href="#cb19-112" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_to_dev_15_17, <span class="at">main =</span> <span class="st">"2015 - 2017"</span>)</span>
+<span id="cb19-113"><a href="#cb19-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-114"><a href="#cb19-114" aria-hidden="true" tabindex="-1"></a>veg_to_dev_17_20 <span class="ot">&lt;-</span> (r17_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>)) <span class="sc">&amp;</span> (r20_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb19-115"><a href="#cb19-115" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_to_dev_17_20, <span class="at">main =</span> <span class="st">"2017 - 2020"</span>)</span>
+<span id="cb19-116"><a href="#cb19-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-117"><a href="#cb19-117" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Areas of Vegetation to Developed"</span>,</span>
+<span id="cb19-118"><a href="#cb19-118" aria-hidden="true" tabindex="-1"></a>      <span class="at">outer =</span> <span class="cn">TRUE</span>, <span class="at">cex =</span> <span class="fl">1.5</span>, <span class="at">line =</span> <span class="dv">2</span>)</span>
+<span id="cb19-119"><a href="#cb19-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-120"><a href="#cb19-120" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-121"><a href="#cb19-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-124"><a href="#cb19-124" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-125"><a href="#cb19-125" aria-hidden="true" tabindex="-1"></a><span class="co">#| out-width: "90%"</span></span>
+<span id="cb19-126"><a href="#cb19-126" aria-hidden="true" tabindex="-1"></a><span class="co">#| out-height: "auto"</span></span>
+<span id="cb19-127"><a href="#cb19-127" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">oma =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">0</span>)) </span>
+<span id="cb19-128"><a href="#cb19-128" aria-hidden="true" tabindex="-1"></a>veg_to_dev_10_24 <span class="ot">&lt;-</span> (r10_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>)) <span class="sc">&amp;</span> (r24_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb19-129"><a href="#cb19-129" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_to_dev_10_24, <span class="at">main =</span> <span class="st">"2010 - 2024"</span>)</span>
+<span id="cb19-130"><a href="#cb19-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-131"><a href="#cb19-131" aria-hidden="true" tabindex="-1"></a>veg_to_dev_17_24 <span class="ot">&lt;-</span> (r17_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>)) <span class="sc">&amp;</span> (r24_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb19-132"><a href="#cb19-132" aria-hidden="true" tabindex="-1"></a><span class="co">#plot(veg_to_dev_17_24, main = "2017 - 2024")</span></span>
+<span id="cb19-133"><a href="#cb19-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-134"><a href="#cb19-134" aria-hidden="true" tabindex="-1"></a>veg_to_dev_20_24 <span class="ot">&lt;-</span> (r20_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>)) <span class="sc">&amp;</span> (r24_aligned <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb19-135"><a href="#cb19-135" aria-hidden="true" tabindex="-1"></a><span class="co">#plot(veg_to_dev_20_24, main = "2020 - 2024")</span></span>
+<span id="cb19-136"><a href="#cb19-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-137"><a href="#cb19-137" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Areas of Vegetation to Developed"</span>,</span>
+<span id="cb19-138"><a href="#cb19-138" aria-hidden="true" tabindex="-1"></a>      <span class="at">outer =</span> <span class="cn">TRUE</span>, <span class="at">cex =</span> <span class="fl">1.5</span>, <span class="at">line =</span> <span class="dv">2</span>)</span>
+<span id="cb19-139"><a href="#cb19-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-140"><a href="#cb19-140" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-141"><a href="#cb19-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-142"><a href="#cb19-142" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Find spatial clustering of land change ('True' cells)</span></span>
+<span id="cb19-143"><a href="#cb19-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-146"><a href="#cb19-146" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-147"><a href="#cb19-147" aria-hidden="true" tabindex="-1"></a>moving_window <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>)</span>
+<span id="cb19-148"><a href="#cb19-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-149"><a href="#cb19-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-150"><a href="#cb19-150" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, message = FALSE, results = 'hide', fig.show = 'hide', echo = FALSE}</span></span>
+<span id="cb19-151"><a href="#cb19-151" aria-hidden="true" tabindex="-1"></a><span class="in">#2010 - 2015 Hotspot </span></span>
+<span id="cb19-152"><a href="#cb19-152" aria-hidden="true" tabindex="-1"></a><span class="in">veg_loss_hotspots_10_15 &lt;- focal(veg_to_dev_10_15, w = moving_window, fun = sum, na.policy = "omit")</span></span>
+<span id="cb19-153"><a href="#cb19-153" aria-hidden="true" tabindex="-1"></a><span class="in">plot(veg_loss_hotspots_10_15, main = "Vegetation to Development Hotspots 2010 - 2015", col = terrain.colors(100))</span></span>
+<span id="cb19-154"><a href="#cb19-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-155"><a href="#cb19-155" aria-hidden="true" tabindex="-1"></a><span class="in">strong_hotspots_10_15&lt;- veg_loss_hotspots_10_15 &gt; 10</span></span>
+<span id="cb19-156"><a href="#cb19-156" aria-hidden="true" tabindex="-1"></a><span class="in">plot(strong_hotspots_10_15, main = "Strong Vegetation Loss Hotspots 2010 - 2015", col = c("white", "red"))</span></span>
+<span id="cb19-157"><a href="#cb19-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-158"><a href="#cb19-158" aria-hidden="true" tabindex="-1"></a><span class="in">n_hotspot_pixels_10_15 &lt;- global(strong_hotspots_10_15, sum, na.rm = TRUE)</span></span>
+<span id="cb19-159"><a href="#cb19-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-160"><a href="#cb19-160" aria-hidden="true" tabindex="-1"></a><span class="in">hotspot_area_m2_10_15 &lt;- n_hotspot_pixels_10_15 * 900</span></span>
+<span id="cb19-161"><a href="#cb19-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-162"><a href="#cb19-162" aria-hidden="true" tabindex="-1"></a><span class="in">print(paste("2010-2015 Total strong hotspot area (meters^2):", round(hotspot_area_m2_10_15, 2)))</span></span>
+<span id="cb19-163"><a href="#cb19-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-164"><a href="#cb19-164" aria-hidden="true" tabindex="-1"></a><span class="in">#2015 - 2017 Hotspot </span></span>
+<span id="cb19-165"><a href="#cb19-165" aria-hidden="true" tabindex="-1"></a><span class="in">veg_loss_hotspots_15_17 &lt;- focal(veg_to_dev_15_17, w = moving_window, fun = sum, na.policy = "omit")</span></span>
+<span id="cb19-166"><a href="#cb19-166" aria-hidden="true" tabindex="-1"></a><span class="in">plot(veg_loss_hotspots_15_17, main = "Vegetation to Development Hotspots 2015 - 2017", col = terrain.colors(150))</span></span>
+<span id="cb19-167"><a href="#cb19-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-168"><a href="#cb19-168" aria-hidden="true" tabindex="-1"></a><span class="in">strong_hotspots_15_17&lt;- veg_loss_hotspots_15_17 &gt; 15</span></span>
+<span id="cb19-169"><a href="#cb19-169" aria-hidden="true" tabindex="-1"></a><span class="in">plot(strong_hotspots_15_17, main = "Strong Vegetation Loss Hotspots 2015 - 2017", col = c("white", "red"))</span></span>
+<span id="cb19-170"><a href="#cb19-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-171"><a href="#cb19-171" aria-hidden="true" tabindex="-1"></a><span class="in">n_hotspot_pixels_15_17 &lt;- global(strong_hotspots_15_17, sum, na.rm = TRUE)</span></span>
+<span id="cb19-172"><a href="#cb19-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-173"><a href="#cb19-173" aria-hidden="true" tabindex="-1"></a><span class="in">hotspot_area_m2_15_17 &lt;- n_hotspot_pixels_15_17 * 900</span></span>
+<span id="cb19-174"><a href="#cb19-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-175"><a href="#cb19-175" aria-hidden="true" tabindex="-1"></a><span class="in">print(paste("2015-2017 Total strong hotspot area (meters^2):", round(hotspot_area_m2_15_17, 2)))</span></span>
+<span id="cb19-176"><a href="#cb19-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-177"><a href="#cb19-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-178"><a href="#cb19-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-179"><a href="#cb19-179" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2017 - 2020 Hotspots</span></span>
+<span id="cb19-180"><a href="#cb19-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-181"><a href="#cb19-181" aria-hidden="true" tabindex="-1"></a><span class="in">```{r,  message = FALSE, results = 'hide', fig.show = 'hide', echo = FALSE}</span></span>
+<span id="cb19-182"><a href="#cb19-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-183"><a href="#cb19-183" aria-hidden="true" tabindex="-1"></a><span class="in">veg_loss_hotspots_17_20 &lt;- focal(veg_to_dev_17_20, w = moving_window, fun = sum, na.policy = "omit")</span></span>
+<span id="cb19-184"><a href="#cb19-184" aria-hidden="true" tabindex="-1"></a><span class="in">plot(veg_loss_hotspots_17_20, main = "Vegetation to Development Hotspots 2017 - 2020", col = terrain.colors(170))</span></span>
+<span id="cb19-185"><a href="#cb19-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-186"><a href="#cb19-186" aria-hidden="true" tabindex="-1"></a><span class="in">strong_hotspots_17_20&lt;- veg_loss_hotspots_17_20 &gt; 17</span></span>
+<span id="cb19-187"><a href="#cb19-187" aria-hidden="true" tabindex="-1"></a><span class="in">plot(strong_hotspots_17_20, main = "Strong Vegetation Loss Hotspots 2017 - 2020", col = c("white", "red"))</span></span>
+<span id="cb19-188"><a href="#cb19-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-189"><a href="#cb19-189" aria-hidden="true" tabindex="-1"></a><span class="in">n_hotspot_pixels_17_20 &lt;- global(strong_hotspots_17_20, sum, na.rm = TRUE)</span></span>
+<span id="cb19-190"><a href="#cb19-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-191"><a href="#cb19-191" aria-hidden="true" tabindex="-1"></a><span class="in">hotspot_area_m2_17_20 &lt;- n_hotspot_pixels_17_20 * 900</span></span>
+<span id="cb19-192"><a href="#cb19-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-193"><a href="#cb19-193" aria-hidden="true" tabindex="-1"></a><span class="in">print(paste("2017-2020 Total strong hotspot area (meters^2):", round(hotspot_area_m2_17_20, 2)))</span></span>
+<span id="cb19-194"><a href="#cb19-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-195"><a href="#cb19-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-196"><a href="#cb19-196" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2020 - 2024 Hotspots</span></span>
+<span id="cb19-197"><a href="#cb19-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-198"><a href="#cb19-198" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, message = FALSE, results = 'hide', fig.show = 'hide', echo = FALSE}</span></span>
+<span id="cb19-199"><a href="#cb19-199" aria-hidden="true" tabindex="-1"></a><span class="in">veg_loss_hotspots_20_24 &lt;- focal(veg_to_dev_20_24, w = moving_window, fun = sum, na.policy = "omit")</span></span>
+<span id="cb19-200"><a href="#cb19-200" aria-hidden="true" tabindex="-1"></a><span class="in">plot(veg_loss_hotspots_20_24, main = "Vegetation to Development Hotspots 2020 - 2024", col = terrain.colors(170))</span></span>
+<span id="cb19-201"><a href="#cb19-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-202"><a href="#cb19-202" aria-hidden="true" tabindex="-1"></a><span class="in">strong_hotspots_20_24&lt;- veg_loss_hotspots_20_24 &gt; 17</span></span>
+<span id="cb19-203"><a href="#cb19-203" aria-hidden="true" tabindex="-1"></a><span class="in">plot(strong_hotspots_20_24, main = "Strong Vegetation Loss Hotspots 2020 - 2024", col = c("white", "red"))</span></span>
+<span id="cb19-204"><a href="#cb19-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-205"><a href="#cb19-205" aria-hidden="true" tabindex="-1"></a><span class="in">n_hotspot_pixels_20_24 &lt;- global(strong_hotspots_20_24, sum, na.rm = TRUE)</span></span>
+<span id="cb19-206"><a href="#cb19-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-207"><a href="#cb19-207" aria-hidden="true" tabindex="-1"></a><span class="in">hotspot_area_m2_20_24 &lt;- n_hotspot_pixels_20_24 * 900</span></span>
+<span id="cb19-208"><a href="#cb19-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-209"><a href="#cb19-209" aria-hidden="true" tabindex="-1"></a><span class="in">print(paste("2020-2024 Total strong hotspot area (meters^2):", round(hotspot_area_m2_20_24, 2)))</span></span>
+<span id="cb19-210"><a href="#cb19-210" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-211"><a href="#cb19-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-212"><a href="#cb19-212" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2010 - 2024 Hotspots</span></span>
+<span id="cb19-213"><a href="#cb19-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-216"><a href="#cb19-216" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-217"><a href="#cb19-217" aria-hidden="true" tabindex="-1"></a>veg_loss_hotspots_10_24 <span class="ot">&lt;-</span> <span class="fu">focal</span>(veg_to_dev_10_24, <span class="at">w =</span> moving_window, <span class="at">fun =</span> sum, <span class="at">na.policy =</span> <span class="st">"omit"</span>)</span>
+<span id="cb19-218"><a href="#cb19-218" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg_loss_hotspots_10_24, <span class="at">main =</span> <span class="st">"Vegetation to Development Hotspots 2010 - 2024"</span>, <span class="at">col =</span> <span class="fu">terrain.colors</span>(<span class="dv">170</span>))</span>
+<span id="cb19-219"><a href="#cb19-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-220"><a href="#cb19-220" aria-hidden="true" tabindex="-1"></a>strong_hotspots_10_24<span class="ot">&lt;-</span> veg_loss_hotspots_10_24 <span class="sc">&gt;</span> <span class="dv">15</span></span>
+<span id="cb19-221"><a href="#cb19-221" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(strong_hotspots_10_24, <span class="at">main =</span> <span class="st">"Strong Vegetation Loss Hotspots 2010 - 2024"</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"white"</span>, <span class="st">"red"</span>))</span>
+<span id="cb19-222"><a href="#cb19-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-223"><a href="#cb19-223" aria-hidden="true" tabindex="-1"></a>n_hotspot_pixels_10_24 <span class="ot">&lt;-</span> <span class="fu">global</span>(strong_hotspots_10_24, sum, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-224"><a href="#cb19-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-225"><a href="#cb19-225" aria-hidden="true" tabindex="-1"></a>hotspot_area_m2_10_24 <span class="ot">&lt;-</span> n_hotspot_pixels_10_24 <span class="sc">*</span> <span class="dv">900</span></span>
+<span id="cb19-226"><a href="#cb19-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-227"><a href="#cb19-227" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"2010-2024 Total strong hotspot area (meters^2):"</span>, <span class="fu">round</span>(hotspot_area_m2_10_24, <span class="dv">2</span>)))</span>
+<span id="cb19-228"><a href="#cb19-228" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-229"><a href="#cb19-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-230"><a href="#cb19-230" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2017 - 2024 Hotspots</span></span>
+<span id="cb19-231"><a href="#cb19-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-232"><a href="#cb19-232" aria-hidden="true" tabindex="-1"></a><span class="in">```{r,  message = FALSE, results = 'hide', fig.show = 'hide', echo = FALSE}</span></span>
+<span id="cb19-233"><a href="#cb19-233" aria-hidden="true" tabindex="-1"></a><span class="in">veg_loss_hotspots_17_24 &lt;- focal(veg_to_dev_17_24, w = moving_window, fun = sum, na.policy = "omit")</span></span>
+<span id="cb19-234"><a href="#cb19-234" aria-hidden="true" tabindex="-1"></a><span class="in">plot(veg_loss_hotspots_17_24, main = "Vegetation to Development Hotspots 2017 - 2024", col = terrain.colors(170))</span></span>
+<span id="cb19-235"><a href="#cb19-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-236"><a href="#cb19-236" aria-hidden="true" tabindex="-1"></a><span class="in">strong_hotspots_17_24&lt;- veg_loss_hotspots_17_24 &gt; 15</span></span>
+<span id="cb19-237"><a href="#cb19-237" aria-hidden="true" tabindex="-1"></a><span class="in">plot(strong_hotspots_17_24, main = "Strong Vegetation Loss Hotspots 2017 - 2024", col = c("white", "red"))</span></span>
+<span id="cb19-238"><a href="#cb19-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-239"><a href="#cb19-239" aria-hidden="true" tabindex="-1"></a><span class="in">n_hotspot_pixels_17_24 &lt;- global(strong_hotspots_17_24, sum, na.rm = TRUE)</span></span>
+<span id="cb19-240"><a href="#cb19-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-241"><a href="#cb19-241" aria-hidden="true" tabindex="-1"></a><span class="in">hotspot_area_m2_17_24 &lt;- n_hotspot_pixels_17_24 * 900</span></span>
+<span id="cb19-242"><a href="#cb19-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-243"><a href="#cb19-243" aria-hidden="true" tabindex="-1"></a><span class="in">print(paste("2010-2024 Total strong hotspot area (meters^2):", round(hotspot_area_m2_17_24, 2)))</span></span>
+<span id="cb19-244"><a href="#cb19-244" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-245"><a href="#cb19-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-246"><a href="#cb19-246" aria-hidden="true" tabindex="-1"></a><span class="in">```{r }</span></span>
+<span id="cb19-247"><a href="#cb19-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-248"><a href="#cb19-248" aria-hidden="true" tabindex="-1"></a><span class="in">#convert raster hotspots to polygons</span></span>
+<span id="cb19-249"><a href="#cb19-249" aria-hidden="true" tabindex="-1"></a><span class="in">hotspot_polygons &lt;- as.polygons(strong_hotspots_10_24, dissolve = FALSE)</span></span>
+<span id="cb19-250"><a href="#cb19-250" aria-hidden="true" tabindex="-1"></a><span class="in">hotspot_polygons &lt;- hotspot_polygons[hotspot_polygons[[1]] == 1, ]</span></span>
+<span id="cb19-251"><a href="#cb19-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-252"><a href="#cb19-252" aria-hidden="true" tabindex="-1"></a><span class="in">#find centroids and coords to polygons</span></span>
+<span id="cb19-253"><a href="#cb19-253" aria-hidden="true" tabindex="-1"></a><span class="in">centroids &lt;- centroids(hotspot_polygons)</span></span>
+<span id="cb19-254"><a href="#cb19-254" aria-hidden="true" tabindex="-1"></a><span class="in">coords &lt;- crds(centroids)</span></span>
+<span id="cb19-255"><a href="#cb19-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-256"><a href="#cb19-256" aria-hidden="true" tabindex="-1"></a><span class="in">#find clustering of centroids </span></span>
+<span id="cb19-257"><a href="#cb19-257" aria-hidden="true" tabindex="-1"></a><span class="in">eps_value &lt;- 50  # adjust as needed</span></span>
+<span id="cb19-258"><a href="#cb19-258" aria-hidden="true" tabindex="-1"></a><span class="in">clust &lt;- dbscan(coords, eps = eps_value, minPts = 1)</span></span>
+<span id="cb19-259"><a href="#cb19-259" aria-hidden="true" tabindex="-1"></a><span class="in">centroids$cluster &lt;- clust$cluster</span></span>
+<span id="cb19-260"><a href="#cb19-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-261"><a href="#cb19-261" aria-hidden="true" tabindex="-1"></a><span class="in">attr_df &lt;- as.data.frame(centroids)</span></span>
+<span id="cb19-262"><a href="#cb19-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-263"><a href="#cb19-263" aria-hidden="true" tabindex="-1"></a><span class="in">#make grouped centroids into one single centroid by average (x,y)</span></span>
+<span id="cb19-264"><a href="#cb19-264" aria-hidden="true" tabindex="-1"></a><span class="in">centroids_df &lt;- cbind(attr_df, x = coords[,1], y = coords[,2])</span></span>
+<span id="cb19-265"><a href="#cb19-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-266"><a href="#cb19-266" aria-hidden="true" tabindex="-1"></a><span class="in">cluster_summary &lt;- centroids_df %&gt;%</span></span>
+<span id="cb19-267"><a href="#cb19-267" aria-hidden="true" tabindex="-1"></a><span class="in">  group_by(cluster) %&gt;%</span></span>
+<span id="cb19-268"><a href="#cb19-268" aria-hidden="true" tabindex="-1"></a><span class="in">  summarize(</span></span>
+<span id="cb19-269"><a href="#cb19-269" aria-hidden="true" tabindex="-1"></a><span class="in">    mean_x = mean(x),</span></span>
+<span id="cb19-270"><a href="#cb19-270" aria-hidden="true" tabindex="-1"></a><span class="in">    mean_y = mean(y),</span></span>
+<span id="cb19-271"><a href="#cb19-271" aria-hidden="true" tabindex="-1"></a><span class="in">    count = n()</span></span>
+<span id="cb19-272"><a href="#cb19-272" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb19-273"><a href="#cb19-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-274"><a href="#cb19-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-275"><a href="#cb19-275" aria-hidden="true" tabindex="-1"></a><span class="in">cluster_centroids &lt;- vect(cluster_summary[, c("mean_x", "mean_y")], </span></span>
+<span id="cb19-276"><a href="#cb19-276" aria-hidden="true" tabindex="-1"></a><span class="in">                         geom = c("mean_x", "mean_y"), crs = crs(centroids))</span></span>
+<span id="cb19-277"><a href="#cb19-277" aria-hidden="true" tabindex="-1"></a><span class="in">#areas of hotspots</span></span>
+<span id="cb19-278"><a href="#cb19-278" aria-hidden="true" tabindex="-1"></a><span class="in">plot(cluster_centroids)</span></span>
+<span id="cb19-279"><a href="#cb19-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-280"><a href="#cb19-280" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-281"><a href="#cb19-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-284"><a href="#cb19-284" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-285"><a href="#cb19-285" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------------------------</span></span>
+<span id="cb19-286"><a href="#cb19-286" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Convert to sf and reproject to WGS84</span></span>
+<span id="cb19-287"><a href="#cb19-287" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------------------------</span></span>
+<span id="cb19-288"><a href="#cb19-288" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming clustered_centroids is a SpatVector from terra</span></span>
+<span id="cb19-289"><a href="#cb19-289" aria-hidden="true" tabindex="-1"></a>clustered_centroids_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(cluster_centroids)</span>
+<span id="cb19-290"><a href="#cb19-290" aria-hidden="true" tabindex="-1"></a>clustered_centroids_wgs84 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(clustered_centroids_sf, <span class="dv">4326</span>)</span>
+<span id="cb19-291"><a href="#cb19-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-292"><a href="#cb19-292" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------------------------</span></span>
+<span id="cb19-293"><a href="#cb19-293" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Buffer each centroid (e.g., ~25m buffer in degrees)</span></span>
+<span id="cb19-294"><a href="#cb19-294" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------------------------</span></span>
+<span id="cb19-295"><a href="#cb19-295" aria-hidden="true" tabindex="-1"></a>buffer_radius <span class="ot">&lt;-</span> <span class="fl">0.00025</span>  <span class="co"># ~25 meters in lat/lon degrees</span></span>
+<span id="cb19-296"><a href="#cb19-296" aria-hidden="true" tabindex="-1"></a>centroid_buffers <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(clustered_centroids_wgs84, <span class="at">dist =</span> buffer_radius)</span>
+<span id="cb19-297"><a href="#cb19-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-298"><a href="#cb19-298" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------------------------</span></span>
+<span id="cb19-299"><a href="#cb19-299" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Query OSM for landuse features (one request for all)</span></span>
+<span id="cb19-300"><a href="#cb19-300" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------------------------</span></span>
+<span id="cb19-301"><a href="#cb19-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-302"><a href="#cb19-302" aria-hidden="true" tabindex="-1"></a><span class="co"># Get bounding box of all buffers</span></span>
+<span id="cb19-303"><a href="#cb19-303" aria-hidden="true" tabindex="-1"></a>global_bbox <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(centroid_buffers)</span>
+<span id="cb19-304"><a href="#cb19-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-305"><a href="#cb19-305" aria-hidden="true" tabindex="-1"></a><span class="co"># Set OSM key to landuse</span></span>
+<span id="cb19-306"><a href="#cb19-306" aria-hidden="true" tabindex="-1"></a>osm_key <span class="ot">&lt;-</span> <span class="st">"landuse"</span></span>
+<span id="cb19-307"><a href="#cb19-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-308"><a href="#cb19-308" aria-hidden="true" tabindex="-1"></a><span class="co"># Build and send query</span></span>
+<span id="cb19-309"><a href="#cb19-309" aria-hidden="true" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> global_bbox) <span class="sc">%&gt;%</span></span>
+<span id="cb19-310"><a href="#cb19-310" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_osm_feature</span>(<span class="at">key =</span> osm_key)</span>
+<span id="cb19-311"><a href="#cb19-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-312"><a href="#cb19-312" aria-hidden="true" tabindex="-1"></a>osm_data <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(</span>
+<span id="cb19-313"><a href="#cb19-313" aria-hidden="true" tabindex="-1"></a>  <span class="fu">osmdata_sf</span>(query),</span>
+<span id="cb19-314"><a href="#cb19-314" aria-hidden="true" tabindex="-1"></a>  <span class="at">error =</span> <span class="cf">function</span>(e) <span class="cn">NULL</span></span>
+<span id="cb19-315"><a href="#cb19-315" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-316"><a href="#cb19-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-317"><a href="#cb19-317" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------------------------</span></span>
+<span id="cb19-318"><a href="#cb19-318" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Intersect returned OSM features with centroid buffers</span></span>
+<span id="cb19-319"><a href="#cb19-319" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------------------------</span></span>
+<span id="cb19-320"><a href="#cb19-320" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(osm_data) <span class="sc">&amp;&amp;</span> <span class="fu">nrow</span>(osm_data<span class="sc">$</span>osm_polygons) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb19-321"><a href="#cb19-321" aria-hidden="true" tabindex="-1"></a>  osm_landuse <span class="ot">&lt;-</span> osm_data<span class="sc">$</span>osm_polygons</span>
+<span id="cb19-322"><a href="#cb19-322" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb19-323"><a href="#cb19-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-324"><a href="#cb19-324" aria-hidden="true" tabindex="-1"></a>  overlaps <span class="ot">&lt;-</span> <span class="fu">st_join</span>(centroid_buffers, osm_landuse, <span class="at">join =</span> st_intersects, <span class="at">left =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb19-325"><a href="#cb19-325" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb19-326"><a href="#cb19-326" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nrow</span>(overlaps) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb19-327"><a href="#cb19-327" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-328"><a href="#cb19-328" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Matched landuse types:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb19-329"><a href="#cb19-329" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">table</span>(overlaps<span class="sc">$</span>landuse))</span>
+<span id="cb19-330"><a href="#cb19-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-331"><a href="#cb19-331" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb19-332"><a href="#cb19-332" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="fu">st_geometry</span>(centroid_buffers), <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">border =</span> <span class="st">"gray"</span>, <span class="at">main =</span> <span class="st">"Land Use Around Clustered Centroids"</span>)</span>
+<span id="cb19-333"><a href="#cb19-333" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="fu">st_geometry</span>(osm_landuse), <span class="at">col =</span> <span class="st">"lightgreen"</span>, <span class="at">border =</span> <span class="st">"green"</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-334"><a href="#cb19-334" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="fu">st_geometry</span>(clustered_centroids_wgs84), <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-335"><a href="#cb19-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-336"><a href="#cb19-336" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb19-337"><a href="#cb19-337" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"no landuse polygons overlapped with point buffer."</span>)</span>
+<span id="cb19-338"><a href="#cb19-338" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb19-339"><a href="#cb19-339" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb19-340"><a href="#cb19-340" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"no landuse data returned from OSM."</span>)</span>
+<span id="cb19-341"><a href="#cb19-341" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-342"><a href="#cb19-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-343"><a href="#cb19-343" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-344"><a href="#cb19-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-347"><a href="#cb19-347" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-348"><a href="#cb19-348" aria-hidden="true" tabindex="-1"></a><span class="co">#buffer the centroids to find the various land use around the area</span></span>
+<span id="cb19-349"><a href="#cb19-349" aria-hidden="true" tabindex="-1"></a>centroid_buffers<span class="sc">$</span>id <span class="ot">&lt;-</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(centroid_buffers))</span>
+<span id="cb19-350"><a href="#cb19-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-351"><a href="#cb19-351" aria-hidden="true" tabindex="-1"></a>landuse_matches <span class="ot">&lt;-</span> <span class="fu">st_join</span>(centroid_buffers, osm_landuse, <span class="at">join =</span> st_intersects, <span class="at">left =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb19-352"><a href="#cb19-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-353"><a href="#cb19-353" aria-hidden="true" tabindex="-1"></a><span class="co">#find the most dominant land use and assign to the centroid</span></span>
+<span id="cb19-354"><a href="#cb19-354" aria-hidden="true" tabindex="-1"></a>dominant_landuse <span class="ot">&lt;-</span> landuse_matches <span class="sc">%&gt;%</span></span>
+<span id="cb19-355"><a href="#cb19-355" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb19-356"><a href="#cb19-356" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id, landuse) <span class="sc">%&gt;%</span></span>
+<span id="cb19-357"><a href="#cb19-357" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-358"><a href="#cb19-358" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span></span>
+<span id="cb19-359"><a href="#cb19-359" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> count, <span class="at">n =</span> <span class="dv">1</span>, <span class="at">with_ties =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb19-360"><a href="#cb19-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-361"><a href="#cb19-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-362"><a href="#cb19-362" aria-hidden="true" tabindex="-1"></a>centroid_with_landuse <span class="ot">&lt;-</span> <span class="fu">left_join</span>(centroid_buffers, dominant_landuse, <span class="at">by =</span> <span class="st">"id"</span>)</span>
+<span id="cb19-363"><a href="#cb19-363" aria-hidden="true" tabindex="-1"></a>centroid_points <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(centroid_with_landuse)</span>
+<span id="cb19-364"><a href="#cb19-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-365"><a href="#cb19-365" aria-hidden="true" tabindex="-1"></a>centroid_points <span class="ot">&lt;-</span> centroid_points <span class="sc">%&gt;%</span></span>
+<span id="cb19-366"><a href="#cb19-366" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb19-367"><a href="#cb19-367" aria-hidden="true" tabindex="-1"></a>    <span class="at">landuse =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(landuse), <span class="st">"not found"</span>, landuse),</span>
+<span id="cb19-368"><a href="#cb19-368" aria-hidden="true" tabindex="-1"></a>    <span class="at">count =</span> <span class="dv">1</span>)</span>
+<span id="cb19-369"><a href="#cb19-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-370"><a href="#cb19-370" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb19-371"><a href="#cb19-371" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_map_tile</span>(<span class="at">type =</span> <span class="st">"osm"</span>) <span class="sc">+</span></span>
+<span id="cb19-372"><a href="#cb19-372" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> centroid_points, <span class="fu">aes</span>(<span class="at">color =</span> landuse), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">19</span>) <span class="sc">+</span></span>
+<span id="cb19-373"><a href="#cb19-373" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">name =</span> <span class="st">"Dominant Landuse"</span>) <span class="sc">+</span></span>
+<span id="cb19-374"><a href="#cb19-374" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb19-375"><a href="#cb19-375" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb19-376"><a href="#cb19-376" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Centroids Colored by Dominant Landuse"</span></span>
+<span id="cb19-377"><a href="#cb19-377" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb19-378"><a href="#cb19-378" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>)</span>
+<span id="cb19-379"><a href="#cb19-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-380"><a href="#cb19-380" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-381"><a href="#cb19-381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-382"><a href="#cb19-382" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2017 - 2024 Hotspots</span></span>
+<span id="cb19-383"><a href="#cb19-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-384"><a href="#cb19-384" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, message = FALSE, results = 'hide', fig.show = 'hide', echo = FALSE}</span></span>
+<span id="cb19-385"><a href="#cb19-385" aria-hidden="true" tabindex="-1"></a><span class="in">#2017 - 2024 Hotspot </span></span>
+<span id="cb19-386"><a href="#cb19-386" aria-hidden="true" tabindex="-1"></a><span class="in">strong_hotspots_proj_17_24 &lt;- project(strong_hotspots_17_24, "EPSG:3857")</span></span>
+<span id="cb19-387"><a href="#cb19-387" aria-hidden="true" tabindex="-1"></a><span class="in"># 1. Convert logical values (FALSE/TRUE) to numeric (0/1)</span></span>
+<span id="cb19-388"><a href="#cb19-388" aria-hidden="true" tabindex="-1"></a><span class="in">strong_hotspots_proj_17_24_numeric &lt;- as.numeric(strong_hotspots_proj_17_24)</span></span>
+<span id="cb19-389"><a href="#cb19-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-390"><a href="#cb19-390" aria-hidden="true" tabindex="-1"></a><span class="in"># 2. Mask out 0 and NA values (only keep the 1's)</span></span>
+<span id="cb19-391"><a href="#cb19-391" aria-hidden="true" tabindex="-1"></a><span class="in">strong_hotspots_proj_17_24_numeric_no_zeros &lt;- mask(strong_hotspots_proj_17_24_numeric, strong_hotspots_proj_17_24_numeric, maskvalues = c(0, NA))</span></span>
+<span id="cb19-392"><a href="#cb19-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-393"><a href="#cb19-393" aria-hidden="true" tabindex="-1"></a><span class="in"># 3. Set color palette for 0 (no hotspot) as transparent and 1 (hotspot) as red</span></span>
+<span id="cb19-394"><a href="#cb19-394" aria-hidden="true" tabindex="-1"></a><span class="in">pal_hotspots &lt;- colorNumeric(</span></span>
+<span id="cb19-395"><a href="#cb19-395" aria-hidden="true" tabindex="-1"></a><span class="in">  palette = c("transparent", "red"),  # Transparent for no hotspot (0), red for hotspot (1)</span></span>
+<span id="cb19-396"><a href="#cb19-396" aria-hidden="true" tabindex="-1"></a><span class="in">  domain = c(0, 1)</span></span>
+<span id="cb19-397"><a href="#cb19-397" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb19-398"><a href="#cb19-398" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-399"><a href="#cb19-399" aria-hidden="true" tabindex="-1"></a><span class="in"># 4. Create the Leaflet map</span></span>
+<span id="cb19-400"><a href="#cb19-400" aria-hidden="true" tabindex="-1"></a><span class="in">leaflet() %&gt;%</span></span>
+<span id="cb19-401"><a href="#cb19-401" aria-hidden="true" tabindex="-1"></a><span class="in">  addProviderTiles(providers$Esri.WorldImagery) %&gt;%</span></span>
+<span id="cb19-402"><a href="#cb19-402" aria-hidden="true" tabindex="-1"></a><span class="in">  addRasterImage(</span></span>
+<span id="cb19-403"><a href="#cb19-403" aria-hidden="true" tabindex="-1"></a><span class="in">    strong_hotspots_proj_17_24_numeric_no_zeros,</span></span>
+<span id="cb19-404"><a href="#cb19-404" aria-hidden="true" tabindex="-1"></a><span class="in">    colors = pal_hotspots,</span></span>
+<span id="cb19-405"><a href="#cb19-405" aria-hidden="true" tabindex="-1"></a><span class="in">    opacity = 0.50,  # Show hotspots with full opacity</span></span>
+<span id="cb19-406"><a href="#cb19-406" aria-hidden="true" tabindex="-1"></a><span class="in">    project = FALSE</span></span>
+<span id="cb19-407"><a href="#cb19-407" aria-hidden="true" tabindex="-1"></a><span class="in">  ) %&gt;%</span></span>
+<span id="cb19-408"><a href="#cb19-408" aria-hidden="true" tabindex="-1"></a><span class="in">  addLegend(</span></span>
+<span id="cb19-409"><a href="#cb19-409" aria-hidden="true" tabindex="-1"></a><span class="in">    position = "bottomright",</span></span>
+<span id="cb19-410"><a href="#cb19-410" aria-hidden="true" tabindex="-1"></a><span class="in">    pal = pal_hotspots,</span></span>
+<span id="cb19-411"><a href="#cb19-411" aria-hidden="true" tabindex="-1"></a><span class="in">    values = c(0, 1),</span></span>
+<span id="cb19-412"><a href="#cb19-412" aria-hidden="true" tabindex="-1"></a><span class="in">    title = "Vegetation Loss Hotspots (2017-2024)",</span></span>
+<span id="cb19-413"><a href="#cb19-413" aria-hidden="true" tabindex="-1"></a><span class="in">    labels = c("No Hotspot", "Hotspot")</span></span>
+<span id="cb19-414"><a href="#cb19-414" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb19-415"><a href="#cb19-415" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-416"><a href="#cb19-416" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-417"><a href="#cb19-417" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2010 - 2024 Hotspots</span></span>
+<span id="cb19-418"><a href="#cb19-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-421"><a href="#cb19-421" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-422"><a href="#cb19-422" aria-hidden="true" tabindex="-1"></a><span class="co">#2010 - 2024 Hotspot </span></span>
+<span id="cb19-423"><a href="#cb19-423" aria-hidden="true" tabindex="-1"></a>strong_hotspots_proj_10_24 <span class="ot">&lt;-</span> <span class="fu">project</span>(strong_hotspots_10_24, <span class="st">"EPSG:3857"</span>)</span>
+<span id="cb19-424"><a href="#cb19-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-425"><a href="#cb19-425" aria-hidden="true" tabindex="-1"></a><span class="co">#Convert True and False to 1 and 0</span></span>
+<span id="cb19-426"><a href="#cb19-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-427"><a href="#cb19-427" aria-hidden="true" tabindex="-1"></a>strong_hotspots_proj_10_24_numeric <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(strong_hotspots_proj_10_24)</span>
+<span id="cb19-428"><a href="#cb19-428" aria-hidden="true" tabindex="-1"></a>strong_hotspots_proj_10_24_numeric_no_zeros <span class="ot">&lt;-</span> <span class="fu">mask</span>(strong_hotspots_proj_10_24_numeric, strong_hotspots_proj_10_24_numeric, <span class="at">maskvalues =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>))</span>
+<span id="cb19-429"><a href="#cb19-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-430"><a href="#cb19-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-431"><a href="#cb19-431" aria-hidden="true" tabindex="-1"></a><span class="co">#Color the hotspots red and make the non hotspot areas transparent</span></span>
+<span id="cb19-432"><a href="#cb19-432" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-433"><a href="#cb19-433" aria-hidden="true" tabindex="-1"></a>pal_hotspots <span class="ot">&lt;-</span> <span class="fu">colorNumeric</span>(</span>
+<span id="cb19-434"><a href="#cb19-434" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"transparent"</span>, <span class="st">"red"</span>),</span>
+<span id="cb19-435"><a href="#cb19-435" aria-hidden="true" tabindex="-1"></a>  <span class="at">domain =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb19-436"><a href="#cb19-436" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-437"><a href="#cb19-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-438"><a href="#cb19-438" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot on a leafet map with osm to identify land use of hotspot areas</span></span>
+<span id="cb19-439"><a href="#cb19-439" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb19-440"><a href="#cb19-440" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>OpenStreetMap) <span class="sc">%&gt;%</span></span>
+<span id="cb19-441"><a href="#cb19-441" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addRasterImage</span>(</span>
+<span id="cb19-442"><a href="#cb19-442" aria-hidden="true" tabindex="-1"></a>    strong_hotspots_proj_10_24_numeric_no_zeros,</span>
+<span id="cb19-443"><a href="#cb19-443" aria-hidden="true" tabindex="-1"></a>    <span class="at">colors =</span> pal_hotspots,</span>
+<span id="cb19-444"><a href="#cb19-444" aria-hidden="true" tabindex="-1"></a>    <span class="at">opacity =</span> <span class="fl">0.50</span>,  <span class="co"># Show hotspots with full opacity</span></span>
+<span id="cb19-445"><a href="#cb19-445" aria-hidden="true" tabindex="-1"></a>    <span class="at">project =</span> <span class="cn">FALSE</span></span>
+<span id="cb19-446"><a href="#cb19-446" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb19-447"><a href="#cb19-447" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addLegend</span>(</span>
+<span id="cb19-448"><a href="#cb19-448" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"bottomright"</span>,</span>
+<span id="cb19-449"><a href="#cb19-449" aria-hidden="true" tabindex="-1"></a>    <span class="at">pal =</span> pal_hotspots,</span>
+<span id="cb19-450"><a href="#cb19-450" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb19-451"><a href="#cb19-451" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Vegetation Loss Hotspots (2010-2024)"</span>,</span>
+<span id="cb19-452"><a href="#cb19-452" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No Hotspot"</span>, <span class="st">"Hotspot"</span>)</span>
+<span id="cb19-453"><a href="#cb19-453" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-454"><a href="#cb19-454" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-455"><a href="#cb19-455" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-456"><a href="#cb19-456" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 
