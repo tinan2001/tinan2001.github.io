@@ -1,41 +1,38 @@
 project:
   type: website
   output-dir: docs
-  
+
 website:
   title: "Tina Ni"
   navbar:
     left:
       - text: About Me
         href: index.qmd
-  
+
       - text: Resume
         href: resume.qmd
-        
+
       - text: Masters Portfolio
         menu:
           - text: Personal Statement
-          - href: personalstatement.qmd
+            href: personalstatement.qmd
           - text: Resume
-          - href: resume.qmd
+            href: resume.qmd
           - text: Writing Sample
-          - href: writingsample.qmd
+            href: writingsample.qmd
           - text: Technical Application
-          - href: GEO653.qmd
-        
+            href: GEO653.qmd
+
       - text: Past Projects
         menu:
-          - text: Advance Remote Sensing
-          - href: GEO653.qmd
+          - text: Advanced Remote Sensing
+            href: GEO653.qmd
           - text: GIS in Env. Modeling
-          - href: GEO559.qmd
+            href: GEO559.qmd
           - text: Machine Learning in GIS (ongoing)
-          - href: GEO514.qmd
-          - text: Dynmaic Modeling
-          - href: GEO593.qmd
-        
-      
-      
+            href: GEO514.qmd
+          - text: Dynamic Modeling
+            href: GEO593.qmd
 
 format:
   html:
