@@ -41,7 +41,6 @@ format:
       - brand
     css: styles.css
     toc: true
-    format:
     code-fold: true
     code-tools: true
     grid:
