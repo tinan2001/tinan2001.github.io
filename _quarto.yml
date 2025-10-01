@@ -23,7 +23,6 @@ website:
           - text: Technical Application
             href: GEO653.qmd
             
-
       - text: Past Projects
         menu:
           - text: Advanced Remote Sensing

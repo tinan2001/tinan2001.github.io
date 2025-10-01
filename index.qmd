@@ -1,10 +1,7 @@
 ---
-title: "Some title"
+title: "About Me"
 ---
-[insert picture of self]
-My name is Tina Ni. I am a current second year graduate student studying geographic information science at SUNY Univeristy at Buffalo. This is website is a portfolio of my past academic projects as well as some career works.
 
+\[insert picture of self\]
 
-```{r}
-1 + 1
-```
+My name is Tina Ni. I am currently a second year graduate student studying geographic information science at SUNY University at Buffalo. This website was created to showcase my past and ongoing projects that I have created that revolve around GIS and spatial data science.
