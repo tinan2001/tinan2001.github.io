@@ -15,24 +15,24 @@ website:
       - text: Masters Portfolio
         menu:
           - text: Personal Statement
-            href: personalstatement.qmd
+            href: personalstatement.html
           - text: Resume
-            href: resume.qmd
+            href: resume.html
           - text: Writing Sample
-            href: writingsample.qmd
+            href: writingsample.html
           - text: Technical Application
-            href: GEO653.qmd
+            href: GEO653.html
             
       - text: Past Projects
         menu:
           - text: Advanced Remote Sensing
-            href: GEO653.qmd
+            href: GEO653.html
           - text: GIS in Env. Modeling
-            href: GEO559.qmd
+            href: GEO559.html
           - text: Machine Learning in GIS (ongoing)
-            href: GEO514.qmd
+            href: GEO514.html
           - text: Dynamic Modeling
-            href: GEO593.qmd
+            href: GEO593.html
 
 format:
   html:
