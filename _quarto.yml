@@ -15,7 +15,7 @@ website:
       - text: Masters Portfolio
         menu:
           - text: Personal Statement
-            href: personalstatement.qmd
+            href: personalst.qmd
           - text: Resume
             href: resume.qmd
           - text: Writing Sample

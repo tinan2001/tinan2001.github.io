@@ -1,8 +1,6 @@
 ---
 title: Academic Personal Statement
-date: "`r format(Sys.time(), '%B %Y')`"
-
-format:
+format: 
   html:
     code-fold: false
     code-tools: false
