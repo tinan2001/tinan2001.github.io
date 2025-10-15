@@ -39,7 +39,7 @@ amherst <- vect("GEO653_documents/BB.shp")
 
 ------------------------------------------------------------------------
 
-####Reproject variables and clean up data
+#### Reproject variables and clean up data
 
 ```{r}
 amherst <- project(amherst, crs(r17))
@@ -158,8 +158,6 @@ print(paste("2015-2017 Total strong hotspot area (meters^2):", round(hotspot_are
 
 ```
 
-#### 2017 - 2020 Hotspots
-
 ```{r,  message = FALSE, results = 'hide', fig.show = 'hide', echo = FALSE}
 
 veg_loss_hotspots_17_20 <- focal(veg_to_dev_17_20, w = moving_window, fun = sum, na.policy = "omit")
@@ -174,8 +172,6 @@ hotspot_area_m2_17_20 <- n_hotspot_pixels_17_20 * 900
 
 print(paste("2017-2020 Total strong hotspot area (meters^2):", round(hotspot_area_m2_17_20, 2)))
 ```
-
-#### 2020 - 2024 Hotspots
 
 ```{r, message = FALSE, results = 'hide', fig.show = 'hide', echo = FALSE}
 veg_loss_hotspots_20_24 <- focal(veg_to_dev_20_24, w = moving_window, fun = sum, na.policy = "omit")
@@ -207,7 +203,7 @@ hotspot_area_m2_10_24 <- n_hotspot_pixels_10_24 * 900
 print(paste("2010-2024 Total strong hotspot area (meters^2):", round(hotspot_area_m2_10_24, 2)))
 ```
 
-#### 2017 - 2024 Hotspots
+
 
 ```{r,  message = FALSE, results = 'hide', fig.show = 'hide', echo = FALSE}
 veg_loss_hotspots_17_24 <- focal(veg_to_dev_17_24, w = moving_window, fun = sum, na.policy = "omit")
@@ -261,30 +257,16 @@ plot(cluster_centroids)
 
 ```{r}
 
-# --------------------------------------
-# 1. Convert to sf and reproject to WGS84
-# --------------------------------------
-# Assuming clustered_centroids is a SpatVector from terra
 clustered_centroids_sf <- st_as_sf(cluster_centroids)
 clustered_centroids_wgs84 <- st_transform(clustered_centroids_sf, 4326)
 
-# --------------------------------------
-# 2. Buffer each centroid (e.g., ~25m buffer in degrees)
-# --------------------------------------
 buffer_radius <- 0.00025  # ~25 meters in lat/lon degrees
 centroid_buffers <- st_buffer(clustered_centroids_wgs84, dist = buffer_radius)
 
-# --------------------------------------
-# 3. Query OSM for landuse features (one request for all)
-# --------------------------------------
-
-# Get bounding box of all buffers
 global_bbox <- st_bbox(centroid_buffers)
 
-# Set OSM key to landuse
 osm_key <- "landuse"
 
-# Build and send query
 query <- opq(bbox = global_bbox) %>%
   add_osm_feature(key = osm_key)
 
@@ -293,9 +275,6 @@ osm_data <- tryCatch(
   error = function(e) NULL
 )
 
-# --------------------------------------
-# 4. Intersect returned OSM features with centroid buffers
-# --------------------------------------
 if (!is.null(osm_data) && nrow(osm_data$osm_polygons) > 0) {
   osm_landuse <- osm_data$osm_polygons
   
@@ -356,24 +335,21 @@ ggplot() +
 
 ```
 
-#### 2017 - 2024 Hotspots
-
 ```{r, message = FALSE, results = 'hide', fig.show = 'hide', echo = FALSE}
 #2017 - 2024 Hotspot 
 strong_hotspots_proj_17_24 <- project(strong_hotspots_17_24, "EPSG:3857")
-# 1. Convert logical values (FALSE/TRUE) to numeric (0/1)
+#false/true = (0/1)
 strong_hotspots_proj_17_24_numeric <- as.numeric(strong_hotspots_proj_17_24)
 
-# 2. Mask out 0 and NA values (only keep the 1's)
+#mask out 0 and NA values
 strong_hotspots_proj_17_24_numeric_no_zeros <- mask(strong_hotspots_proj_17_24_numeric, strong_hotspots_proj_17_24_numeric, maskvalues = c(0, NA))
 
-# 3. Set color palette for 0 (no hotspot) as transparent and 1 (hotspot) as red
 pal_hotspots <- colorNumeric(
   palette = c("transparent", "red"),  # Transparent for no hotspot (0), red for hotspot (1)
   domain = c(0, 1)
 )
 
-# 4. Create the Leaflet map
+#Leaflet map
 leaflet() %>%
   addProviderTiles(providers$Esri.WorldImagery) %>%
   addRasterImage(
@@ -397,20 +373,17 @@ leaflet() %>%
 #2010 - 2024 Hotspot 
 strong_hotspots_proj_10_24 <- project(strong_hotspots_10_24, "EPSG:3857")
 
-#Convert True and False to 1 and 0
+#Convert True/False to (1/0)
 
 strong_hotspots_proj_10_24_numeric <- as.numeric(strong_hotspots_proj_10_24)
 strong_hotspots_proj_10_24_numeric_no_zeros <- mask(strong_hotspots_proj_10_24_numeric, strong_hotspots_proj_10_24_numeric, maskvalues = c(0, NA))
-
-
-#Color the hotspots red and make the non hotspot areas transparent
 
 pal_hotspots <- colorNumeric(
   palette = c("transparent", "red"),
   domain = c(0, 1)
 )
 
-#Plot on a leafet map with osm to identify land use of hotspot areas
+#Leafet map with osm to identify land use of hotspot areas
 leaflet() %>%
   addProviderTiles(providers$OpenStreetMap) %>%
   addRasterImage(
@@ -493,7 +466,7 @@ ggplot() +
 hotspots_utm <- st_transform(hotspots, crs = st_crs(buffer_2mile))
 hotspots_within_buffer <- st_intersection(hotspots_utm, buffer_2mile)
 
-df2 <- as.data.frame( hotspots_within_buffer)
+df2 <- as.data.frame(hotspots_within_buffer)
 
 df2 <- df2 %>%
   group_by(Name) %>%
