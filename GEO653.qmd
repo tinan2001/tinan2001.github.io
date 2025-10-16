@@ -239,11 +239,6 @@ Accuracy assessments were performed with ArcGIS Pro on the classified 2017, 2020
 Initial four-class accuracy assessments
 :::
 
-## Land Cover Change Analysis
-
-Land cover change analysis was performed in RStudio. Each classified Landsat image was reclassified with numerical values: 0 for Water, 1 for Urban Surface, and 3 for Vegetation. Change detection was carried out in three, roughly five-year, intervals: 2010 - 2015, 2015 - 2020, and 2020 - 2024. For each interval, changes in land cover were assessed by comparing the pixel values at corresponding locations between the two images to determine whether the two associated pixel classes changed or remained the same. The 2017 Landsat image was excluded from the analysis due to differences in its classification method and accuracy.
-
-
 ![](images/All%20Accuracy%20Assessments%203%20Class.png)
 
 ::: {style="text-align: center;"}
