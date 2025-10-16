@@ -72,7 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-22351bcc1941327779048f6542ad961a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -131,29 +131,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Resume</span></a>
   </li>  
   <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-masters-portfolio" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Masters Portfolio</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-masters-portfolio">    
+        <li>
+    <a class="dropdown-item" href="./personalst.html">
+ <span class="dropdown-text">Personal Statement</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./resume.html">
+ <span class="dropdown-text">Resume</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./writingsample.qmd">
+ <span class="dropdown-text">Writing Sample</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./GEO653.html">
+ <span class="dropdown-text">Technical Application</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-past-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Past Projects</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-past-projects">    
-        <li class="dropdown-header">Advance Remote Sensing</li>
         <li>
     <a class="dropdown-item" href="./GEO653.html">
- <span class="dropdown-text">LCLU Change in College Town: Amherst, New York</span></a>
+ <span class="dropdown-text">Advanced Remote Sensing</span></a>
   </li>  
-        <li class="dropdown-header">GIS in Env. Modeling</li>
         <li>
     <a class="dropdown-item" href="./GEO559.html">
- <span class="dropdown-text">GEO559</span></a>
+ <span class="dropdown-text">GIS in Env. Modeling</span></a>
   </li>  
-        <li class="dropdown-header">Machine Learning in GIS (ongoing)</li>
         <li>
     <a class="dropdown-item" href="./GEO514.qmd">
- <span class="dropdown-text"></span></a>
+ <span class="dropdown-text">Machine Learning in GIS (ongoing)</span></a>
   </li>  
-        <li class="dropdown-header">Dynmaic Modeling</li>
         <li>
     <a class="dropdown-item" href="./GEO593.qmd">
- <span class="dropdown-text"></span></a>
+ <span class="dropdown-text">Dynamic Modeling</span></a>
   </li>  
     </ul>
   </li>
@@ -176,7 +195,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">GEO559</h1>
+<div class="quarto-title-block"><div><h1 class="title">GEO559</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -200,13 +219,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Study Area</strong> The study area for this problem was Franklin Gulf County Park in North Collins, New York. The park is geographically and hydrologically diverse with features such as ravines, streams, and waterfalls. The woody species located in this area mainly consist of Beech, Hickories, and Eastern Hemlocks.</p>
 <p><strong>Methods</strong> To create a risk assessment map to showcase which areas are more likely to have higher invested hemlock mortality, elevation, soil, and hemlock presence is required.</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span> (kableExtra)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span> (knitr)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>source_data<span class="ot">&lt;-</span> <span class="fu">data.frame</span>( <span class="at">data_source =</span> <span class="fu">c</span>(<span class="st">'USGS DEM'</span>, <span class="st">'USDA SSURGO'</span>, <span class="st">'Sentinel-2'</span>, <span class="st">'NYS Digital Orthoimagery Program'</span>),</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data_type =</span> <span class="fu">c</span>(<span class="st">'elevation, slope, and streams'</span>, <span class="st">'soil drainage characteristics'</span>, <span class="st">'10 meter remote sensing images (April 2018 and 2022)'</span>, <span class="st">'1 meter remote sensing images from 2021'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 
+
+<!-- -->
 
 
 </main> <!-- /main -->
@@ -297,6 +321,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
     clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
@@ -626,7 +701,37 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "GEO559"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>**Introduction**</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>Eastern Hemlocks (*Tsuga canadensis*) are native to eastern United State forests. Categorized as a foundation species, Eastern hemlocks play an important part in the local ecosystem by altering soil chemistry, ground temperature and hydraulic processes (Ford &amp; Vose, 2007; Martin &amp; Goebel, 2013). Due to the invasive species, Hemlock Woolly Adelgid (*Adelfes tsugae*) (HWA), Eastern Hemlocks have also been categorized as a near threatened species. With the lack of predators and bio resilience in the North American region, HWA area able to relentlesslt feed on eastern hemlock tree sap causing plant tissue damage- amplifying the plant's stress and morality rate. On its own, HWA infestation is not the singular cause for hemlock mortality. Infected hemlock mortality increase in conjunction with other environmental songstress such as limited or excessive soil moisture and increased sunlight exposure (Sivaramakrishnan, n.d.).</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>**Problem**</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>Currently, HWA spread is limited by cold winter temperatures. With ongoing climate change, cold periods are less intense- allowing HWA dispersion north (Cornelsen, n.d.). HWA movement into newer regions will require expensive management and monitoring. These management plans are likely to be multi-year efforts (Blossey, 1999; Keller et al., 2011). To help reduce the cost, risk assessment models can be created to predict regions within an area of concern that may have higher HWA invested hemlock mortality. Risk assessment models allow for limited managing resources to be utilized effectively and efficiently.</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>**Study Area**</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>The study area for this problem was Franklin Gulf County Park in North Collins, New York. The park is geographically and hydrologically diverse with features such as ravines, streams, and waterfalls. The woody species located in this area mainly consist of Beech, Hickories, and Eastern Hemlocks.</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>**Methods**</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>To create a risk assessment map to showcase which areas are more likely to have higher invested hemlock mortality, elevation, soil, and hemlock presence is required.</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span> (kableExtra)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span> (knitr)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>source_data<span class="ot">&lt;-</span> <span class="fu">data.frame</span>( <span class="at">data_source =</span> <span class="fu">c</span>(<span class="st">'USGS DEM'</span>, <span class="st">'USDA SSURGO'</span>, <span class="st">'Sentinel-2'</span>, <span class="st">'NYS Digital Orthoimagery Program'</span>),</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data_type =</span> <span class="fu">c</span>(<span class="st">'elevation, slope, and streams'</span>, <span class="st">'soil drainage characteristics'</span>, <span class="st">'10 meter remote sensing images (April 2018 and 2022)'</span>, <span class="st">'1 meter remote sensing images from 2021'</span>))</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 

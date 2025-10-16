@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "About Me",
     "section": "",
-    "text": "[insert picture of self]\nMy name is Tina Ni. I am currently a second year graduate student studying geographic information science at SUNY University at Buffalo. This website was created to showcase my past and ongoing projects that I have created that revolve around GIS and spatial data science."
+    "text": "My name is Tina Ni. I am currently a second year graduate student studying Geographic Information Science at SUNY University at Buffalo. This website was created to showcase my past and ongoing projects that revolve around GIS and spatial data science."
   },
   {
     "objectID": "about.html",
@@ -25,7 +25,7 @@
     "href": "GEO559.html",
     "title": "GEO559",
     "section": "",
-    "text": "This is the GIS Environmental Modeling Project"
+    "text": "Introduction\nEastern Hemlocks (Tsuga canadensis) are native to eastern United State forests. Categorized as a foundation species, Eastern hemlocks play an important part in the local ecosystem by altering soil chemistry, ground temperature and hydraulic processes (Ford & Vose, 2007; Martin & Goebel, 2013). Due to the invasive species, Hemlock Woolly Adelgid (Adelfes tsugae) (HWA), Eastern Hemlocks have also been categorized as a near threatened species. With the lack of predators and bio resilience in the North American region, HWA area able to relentlesslt feed on eastern hemlock tree sap causing plant tissue damage- amplifying the plant’s stress and morality rate. On its own, HWA infestation is not the singular cause for hemlock mortality. Infected hemlock mortality increase in conjunction with other environmental songstress such as limited or excessive soil moisture and increased sunlight exposure (Sivaramakrishnan, n.d.).\nProblem\nCurrently, HWA spread is limited by cold winter temperatures. With ongoing climate change, cold periods are less intense- allowing HWA dispersion north (Cornelsen, n.d.). HWA movement into newer regions will require expensive management and monitoring. These management plans are likely to be multi-year efforts (Blossey, 1999; Keller et al., 2011). To help reduce the cost, risk assessment models can be created to predict regions within an area of concern that may have higher HWA invested hemlock mortality. Risk assessment models allow for limited managing resources to be utilized effectively and efficiently.\nStudy Area The study area for this problem was Franklin Gulf County Park in North Collins, New York. The park is geographically and hydrologically diverse with features such as ravines, streams, and waterfalls. The woody species located in this area mainly consist of Beech, Hickories, and Eastern Hemlocks.\nMethods To create a risk assessment map to showcase which areas are more likely to have higher invested hemlock mortality, elevation, soil, and hemlock presence is required.\n\n\nCode\nlibrary (kableExtra)\nlibrary (knitr)\n\nsource_data&lt;- data.frame( data_source = c('USGS DEM', 'USDA SSURGO', 'Sentinel-2', 'NYS Digital Orthoimagery Program'),\n                          data_type = c('elevation, slope, and streams', 'soil drainage characteristics', '10 meter remote sensing images (April 2018 and 2022)', '1 meter remote sensing images from 2021'))"
   },
   {
     "objectID": "resume.html",
