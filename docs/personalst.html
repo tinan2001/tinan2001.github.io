@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -161,7 +195,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Academic Personal Statement</h1>
+<div class="quarto-title-block"><div><h1 class="title">Academic Personal Statement</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -184,6 +218,8 @@ ul.task-list li input[type="checkbox"] {
 <p>Overall, after completing graduate geographic information science program, I can confidently say that the program and the GIS community at UB has prepared me to think and solve issues in both a professional and social setting. By the end of this program, I will have gained stronger analytical, technical, and critical thinking skills to solve issues related to both human and nonhuman environmental systems.</p>
 <p>Not only has this graduate program helped me achieve my original goal to learn more GIS skills for the environmental problems but it has also created new goals for me to better our society and our communities. As I leave the department and set out into my professional career, I exit this program with a confident and respected understanding of GIS that is viewed as a way to connect communities, environments, and society with technology and data. The geographic information science graduate program has equipped me to move from the academic setting into the professional world with vital tools to understand systems and structures spatially- allowing me to improve communities and society.</p>
 
+
+<!-- -->
 
 
 </main> <!-- /main -->
@@ -274,6 +310,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
     clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
@@ -603,7 +690,21 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Academic Personal Statement</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>When I first applied to the graduate Geographic Information Science program at the University at Buffalo, my initial goal was to learn new GIS skills that would be applicable to my environmental profession. At that time, my main area of interest was invasive species management and saw GIS as a critical tool to help model and further understand and solve the environment and the problems respected to it Now, after almost completing three semesters the GIS program, I can confidently say that my initial goals coming into the program were achieved but also expanded upon. The graduate program along with the faculty, staff, and colleagues have strengthen my technical GIS skills, my insights on geographical and spatial analysis, interpretation, problem solving skills, and broaden my perspective on the role of GIS across various disciplines.</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Through the coursework, I have been able to broaden my perspective on the utilization of GIS in various professional sectors. The spectrum has expanded from environmental monitoring to urban planning and to transportation. The exposure to other professional fields, that also relied on GIS, allowed me to look further than a professional career in the environmental field. Understanding the critical role that GIS has in different sectors has shifted my professional goals to a broader emphasis on spatial science careers. Especially with the ongoing technological improvements and governmental defunding of environmental careers, I see myself - after three semesters, finding myself wanting to use GIS in a professional setting as an essential tool to analyze and improve systems connecting people to the environmental.</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>The fundamental classes such as uni and multi-variant statistics has provided me with an essential baseline to spatial analysis. After taking these classes, there were many instances where I used the statistics that I've learned, to understand problems and create solutions. Without these classes, I would not to be able to excel at the advance coursework that would allow me to showcase my work to professionals. When I selected my elective courses, the program offered a diverse course log that ranged from remote sensing, AI, to transportation. The two areas that I believe became the central to my degree were remote sensing and spatial programming. Both topics incorporated statistics and data analysis at a more advanced level, allowing me to think beyond typical GIS applications and popular GIS tools such as ESRI software. These classes allowed me to create new programs to identify and solve issues. With how advanced society has become- relying more on data and computer driven models, remote sensing and spatial programming assisted in my path to more demanding data science professions.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Overall, after completing graduate geographic information science program, I can confidently say that the program and the GIS community at UB has prepared me to think and solve issues in both a professional and social setting. By the end of this program, I will have gained stronger analytical, technical, and critical thinking skills to solve issues related to both human and nonhuman environmental systems.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Not only has this graduate program helped me achieve my original goal to learn more GIS skills for the environmental problems but it has also created new goals for me to better our society and our communities. As I leave the department and set out into my professional career, I exit this program with a confident and respected understanding of GIS that is viewed as a way to connect communities, environments, and society with technology and data. The geographic information science graduate program has equipped me to move from the academic setting into the professional world with vital tools to understand systems and structures spatially- allowing me to improve communities and society.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 

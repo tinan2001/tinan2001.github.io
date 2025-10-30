@@ -1,9 +1,5 @@
 ---
 title: Academic Personal Statement
-format: 
-  html:
-    code-fold: false
-    code-tools: false
 ---
 
 When I first applied to the graduate Geographic Information Science program at the University at Buffalo, my initial goal was to learn new GIS skills that would be applicable to my environmental profession. At that time, my main area of interest was invasive species management and saw GIS as a critical tool to help model and further understand and solve the environment and the problems respected to it Now, after almost completing three semesters the GIS program, I can confidently say that my initial goals coming into the program were achieved but also expanded upon. The graduate program along with the faculty, staff, and colleagues have strengthen my technical GIS skills, my insights on geographical and spatial analysis, interpretation, problem solving skills, and broaden my perspective on the role of GIS across various disciplines.
