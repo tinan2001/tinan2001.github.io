@@ -19,7 +19,7 @@ website:
           - text: Resume
             href: resume.qmd
           - text: Writing Sample
-            href: writingsample.qmd
+            href: writingsample.html
           - text: Technical Application
             href: GEO653.qmd
             
