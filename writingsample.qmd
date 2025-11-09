@@ -1,6 +1,6 @@
 ---
-title: "Writing Sample Draft 3"
+title: "Land Cover and Land Use Change in Amherst, New York"
 format: html
 ---
 
-<embed title="Writing Sample Draft 2" src="writingsampledocs/Ni_FinalPaper_Draft3.pdf" width="100%" height="110%" />
+<embed title="Land Cover and Land Use Change in Amherst, New York" src="writingsampledocs/LAND COVER LAND USE CHANGE IN AMHERST NEW YORK.pdf" width="100%" height="110%" />
