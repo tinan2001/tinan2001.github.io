@@ -730,14 +730,19 @@ A proximity analysis was conducted after applying a two-mile buffer around the U
 The addition of the seven student-oriented apartments, near the campus, reflects the physical changes associated with studentification (Smith, 2004). As more developments are catered towards the seasonal student population, it is likely that these areas experience fluctuations in activity- becoming quieter and empty during academic breaks and busier with increased traffic and noise during the academic season. Additionally, University at Buffalo’s enrollment data, from 2010 – 2024, showed an increase in student enrollments between 2010 – 2020, which may have contributed to the rise in apartment buildings. However, the enrollment decline from 2020 – 2024, could further enhance the sense of emptiness in these student-focused areas during academic breaks (Kinton et al., 2018; Sage et al., 2012).
 
 # Conclusion
-A total of 27 vegetation-to-urban surface hotspots were identified over the study period. The major hotspots were identified as residential neighborhoods and apartment buildings. Residential hotspots were primarily located outside the two-mile radius from the University at Buffalo’s North Campus– suggesting they are oriented toward local residents and reflect the overall growing town population indicated by US Census data.
-In contrast, majority of apartment hotspots were concentrated within the two-mile buffer zone around the academic campus– likely serving the student population. The increase in off-campus student housing supports signs of studentification, specifically the physical land change aspect. Based on other studentification studies, these student-oriented neighborhoods may experience seasonal fluctuations; neighborhoods appear quieter during academic breaks and significantly busier, with increased traffic and noise, during the academic year.
+Attempts to use OpenStreetMap (OSM) data and land-change centroids to identify areas of land-use change were not successful. This may be due to the high spatial specificity of OSM’s vector data, which limited its compatibility with raster-based change detection. Other approaches could be explored to improve detection accuracy. For example, automated land-use classification methods developed in previous studies have shown strong potential for detecting urban change (Hu & Wang, 2013).
+
+A total of 27 vegetation-to-urban surface hotspots were identified over the study period. The major hotspots were classified as residential neighborhoods and apartment buildings. Residential hotspots were primarily located outside the two-mile radius from the University at Buffalo’s North Campus, suggesting they are oriented toward local residents and reflect the town’s overall population growth, as indicated by U.S. Census data.
+
+In contrast, most apartment hotspots were concentrated within the two-mile buffer zone surrounding the campus (likely serving the student population). The increase in off-campus student housing indicates signs of studentification, particularly in terms of physical land change. Based on findings from other studentification studies, these student-oriented neighborhoods may experience seasonal fluctuations, making areas appearing quiet during academic breaks and significantly busier, with increased traffic and noise, during the academic year.
 
 
 # References
 Baron, M. G., & Diamant, E. R. (2016). Real estate in studentified neighborhoods. ERSA Conference Papers, ersa16p642.
 
 Ducey, M. J., Johnson, K. M., Belair, E. P., & Cook, B. D. (2018). The influence of human demography on land cover change in the Great Lakes States, USA. Environmental Management, 62, 1089–1107.
+
+Hu, S., & Wang, L. (2013). Automated urban land-use classification with remote sensing. International Journal of Remote Sensing, 34(3), 790–803. https://doi.org/10.1080/01431161.2012.714510
 
 Jolivet, V., Reiser, C., Baumann, Y., & Gonzalès, R. (2023). Before displacement: Studentification, campus-led gentrification and rental market transformation in a multiethnic neighborhood (Parc-Extension, Montréal). Urban Geography, 44(5), 983–1002.
 
