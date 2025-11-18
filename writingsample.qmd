@@ -1,6 +1,8 @@
 ---
-title: "Land Cover and Land Use Change in Amherst, New York"
+title: "Eastern Hemlock Risk Assessment Model"
 format: html
 ---
 
-<embed title="Land Cover and Land Use Change in Amherst, New York" src="writingsampledocs/LAND COVER LAND USE CHANGE IN AMHERST NEW YORK.pdf" width="100%" height="110%" />
+<embed title="Eastern Hemlock Mortality Risk Assessment Model
+Based on Environmental Stressors and Hemlock Woolly Adelgid Infestation
+Utilizing GIS and Logistic Regression Modeling" src="writingsampledocs/EASTERN HEMLOCK RISK ASSESSMENT MODEL.pdf" width="100%" height="110%" />
